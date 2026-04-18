@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+  --font-headline: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Theme specific colors from Recipes */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-brand: var(--brand);
+  --color-brand-accent: var(--brand-accent);
+  --color-border-subtle: var(--border-subtle);
+}
+
+:root {
+  /* Dark Mode (Default) - Luxury Technical */
+  --bg-primary: #0f131e;
+  --bg-secondary: #171b27;
+  --text-primary: #dfe2f2;
+  --text-secondary: #8b919e;
+  --brand: #0a66c2;
+  --brand-accent: #a8c8ff;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+}
+
+:root.light {
+  /* Light Mode - Clean Utility / Minimal */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --brand: #0a66c2;
+  --brand-accent: #3b82f6;
+  --border-subtle: rgba(15, 23, 42, 0.05);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-primary text-text-primary transition-colors duration-300;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* AI Content Beautiful Typography */
+.markdown-body {
+  @apply space-y-4 leading-relaxed;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  @apply font-headline font-bold text-brand-accent mt-6 mb-2;
+}
+.markdown-body p {
+  @apply text-sm opacity-90;
+}
+.markdown-body ul, .markdown-body ol {
+  @apply pl-5 space-y-2;
+}
+.markdown-body li {
+  @apply list-disc text-sm;
+}
+.markdown-body strong {
+  @apply font-bold text-white;
+}
+
+:root.light .markdown-body strong {
+  @apply text-slate-900;
+}
