@@ -20,6 +20,7 @@
   /* Dark Mode (Default) - Luxury Technical */
   --bg-primary: #0f131e;
   --bg-secondary: #171b27;
+  --bg-card: #1b1f2b;
   --text-primary: #dfe2f2;
   --text-secondary: #8b919e;
   --brand: #0a66c2;
@@ -28,19 +29,23 @@
 }
 
 :root.light {
-  /* Light Mode - Clean Utility / Minimal */
-  --bg-primary: #f8fafc;
+  /* Light Mode - Standard Clean Corporate */
+  --bg-primary: #f0f2f5;
   --bg-secondary: #ffffff;
-  --text-primary: #0f172a;
+  --bg-card: #ffffff;
+  --text-primary: #1a1f36;
   --text-secondary: #64748b;
   --brand: #0a66c2;
-  --brand-accent: #3b82f6;
-  --border-subtle: rgba(15, 23, 42, 0.05);
+  --brand-accent: #2563eb;
+  --border-subtle: rgba(0, 0, 0, 0.08);
 }
 
 @layer base {
   body {
-    @apply bg-bg-primary text-text-primary transition-colors duration-300;
+    @apply bg-bg-primary text-text-primary transition-all duration-300;
+  }
+  * {
+    @apply transition-colors duration-200;
   }
 }
 

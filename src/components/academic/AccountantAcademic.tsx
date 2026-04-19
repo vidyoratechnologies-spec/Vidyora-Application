@@ -11,14 +11,14 @@ export default function AccountantAcademic() {
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <section>
-        <h2 className="text-3xl font-black font-headline tracking-tighter mb-2">Financial Records</h2>
-        <p className="text-[#94a3b8] text-sm font-medium">Fee structures, collection reports, and aging receivables.</p>
+        <h2 className="text-3xl font-black font-headline tracking-tighter mb-2 text-text-primary">Financial Records</h2>
+        <p className="text-text-secondary text-sm font-medium">Fee structures, collection reports, and aging receivables.</p>
       </section>
 
       {/* Ledger Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {reports.map((report, idx) => (
-          <div key={idx} className="bg-[#171b27] p-6 rounded-3xl border border-white/5 space-y-4">
+          <div key={idx} className="bg-bg-secondary p-6 rounded-3xl border border-border-subtle space-y-4 shadow-sm">
             <div className="flex justify-between items-start">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
                 <FileText size={20} />
@@ -28,8 +28,8 @@ export default function AccountantAcademic() {
               </span>
             </div>
             <div>
-              <h3 className="text-lg font-bold font-headline">{report.title}</h3>
-              <p className="text-2xl font-black font-headline mt-1">{report.amount}</p>
+              <h3 className="text-lg font-bold font-headline text-text-primary">{report.title}</h3>
+              <p className="text-2xl font-black font-headline mt-1 text-text-primary">{report.amount}</p>
             </div>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('export-pdf', { 
@@ -46,7 +46,7 @@ export default function AccountantAcademic() {
                   ] 
                 } 
               }))}
-              className="w-full py-3 bg-white/5 hover:bg-white/10 text-xs font-bold uppercase tracking-widest text-emerald-400 rounded-xl transition-all border border-emerald-500/10 flex items-center justify-center gap-2"
+              className="w-full py-3 bg-bg-primary hover:bg-bg-card text-xs font-bold uppercase tracking-widest text-emerald-400 rounded-xl transition-all border border-emerald-500/10 flex items-center justify-center gap-2"
             >
                 Download Ledger <Download size={14} />
             </button>
@@ -55,9 +55,9 @@ export default function AccountantAcademic() {
       </div>
 
       {/* Fee Structure Management */}
-      <section className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-8 rounded-3xl border border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-8 opacity-10">
-          <ShieldCheck size={120} className="text-emerald-400" />
+      <section className="bg-bg-secondary p-8 rounded-3xl border border-border-subtle relative overflow-hidden shadow-sm">
+        <div className="absolute top-0 right-0 p-8 opacity-[0.03] text-emerald-500">
+          <ShieldCheck size={120} />
         </div>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="space-y-4">
@@ -65,8 +65,8 @@ export default function AccountantAcademic() {
                 <IndianRupee size={16} />
                 Structure Management
             </div>
-            <h2 className="text-2xl font-black font-headline leading-tight">Revise Academic Fee 2026?</h2>
-            <p className="text-[#94a3b8] max-w-sm">Current models suggest a 5% index increase to cover infrastructure expansions in Lab Area B.</p>
+            <h2 className="text-2xl font-black font-headline leading-tight text-text-primary">Revise Academic Fee 2026?</h2>
+            <p className="text-text-secondary max-w-sm">Current models suggest a 5% index increase to cover infrastructure expansions in Lab Area B.</p>
           </div>
           <button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center gap-2 text-sm whitespace-nowrap">
               Review Proposed Structure
@@ -78,30 +78,30 @@ export default function AccountantAcademic() {
       {/* Defaulter Tracking */}
       <section className="space-y-6">
         <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold font-headline flex items-center gap-2">
+            <h3 className="text-xl font-bold font-headline flex items-center gap-2 text-text-primary">
                 <AlertCircle className="text-red-500" size={20} />
                 Critical Defaulters
             </h3>
-            <span className="text-xs text-[#8b919e] font-bold cursor-pointer hover:underline">View All List</span>
+            <span className="text-xs text-text-secondary font-bold cursor-pointer hover:underline">View All List</span>
         </div>
-        <div className="bg-[#171b27] rounded-2xl border border-white/5 divide-y divide-white/5">
+        <div className="bg-bg-secondary rounded-2xl border border-border-subtle divide-y divide-border-subtle shadow-sm">
             {[
                 { name: 'John Doe', roll: 'BT-2022-012', pending: '₹45,000', days: '60+ days', color: 'text-red-500' },
                 { name: 'Sarah Miller', roll: 'BT-2022-045', pending: '₹12,400', days: '15 days', color: 'text-orange-400' },
             ].map((def, i) => (
-                <div key={i} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors cursor-pointer group">
+                <div key={i} className="p-4 flex items-center justify-between hover:bg-bg-card transition-colors cursor-pointer group">
                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-xs font-bold font-headline group-hover:scale-110 transition-transform">
+                        <div className="w-10 h-10 rounded-full bg-bg-primary flex items-center justify-center text-xs font-bold font-headline group-hover:scale-110 transition-transform text-text-primary">
                             {def.name[0]}
                         </div>
                         <div>
-                            <h4 className="text-sm font-bold">{def.name}</h4>
-                            <p className="text-[10px] text-[#8b919e] font-bold uppercase tracking-widest mt-0.5">{def.roll}</p>
+                            <h4 className="text-sm font-bold text-text-primary">{def.name}</h4>
+                            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mt-0.5">{def.roll}</p>
                         </div>
                     </div>
                     <div className="text-right">
                         <p className={`text-sm font-black font-headline ${def.color}`}>{def.pending}</p>
-                        <p className="text-[10px] text-[#8b919e] font-bold uppercase tracking-widest">{def.days} overdue</p>
+                        <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest">{def.days} overdue</p>
                     </div>
                 </div>
             ))}

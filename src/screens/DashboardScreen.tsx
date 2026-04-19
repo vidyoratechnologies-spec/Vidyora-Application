@@ -38,22 +38,22 @@ export default function DashboardScreen({ navigate, userRole }: DashboardScreenP
   };
 
   return (
-    <div className="bg-[#0f131e] text-[#dfe2f2] min-h-screen font-body selection:bg-[#0a66c2]/30 pb-32">
+    <div className="bg-bg-primary text-text-primary min-h-screen font-body selection:bg-brand/30 pb-32">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 bg-[#0f131e]/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-white/5">
+      <header className="fixed top-0 w-full z-50 bg-bg-primary/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-border-subtle">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0a66c2] to-[#4da3ff] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-brand-accent flex items-center justify-center">
             <span className="font-headline font-black text-white text-xs">V</span>
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-tight text-[#a8c8ff] font-headline leading-none">Vidyora</h1>
-            <p className="text-[10px] text-[#8b919e] font-bold uppercase tracking-widest mt-0.5">{dashboardTitles[userRole]}</p>
+            <h1 className="text-lg font-bold tracking-tight text-brand-accent font-headline leading-none">Vidyora</h1>
+            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mt-0.5">{dashboardTitles[userRole]}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#1b1f2b] text-[#a8c8ff] hover:bg-[#262a36] transition-colors border border-white/5 relative">
+          <button className="w-9 h-9 flex items-center justify-center rounded-xl bg-bg-secondary text-brand-accent hover:bg-bg-card transition-colors border border-border-subtle relative">
             <Bell size={18} />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-[#1b1f2b]"></span>
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-bg-secondary"></span>
           </button>
           <div className="w-9 h-9 rounded-full overflow-hidden border border-[#0a66c2]/30">
             <img 

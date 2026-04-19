@@ -11,8 +11,8 @@ export default function AdminAcademic() {
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <section>
-        <h2 className="text-3xl font-black font-headline tracking-tighter mb-2">Institutional Management</h2>
-        <p className="text-[#94a3b8] text-sm font-medium">Global oversight of departments, curriculum, and staffing.</p>
+        <h2 className="text-3xl font-black font-headline tracking-tighter mb-2 text-text-primary">Institutional Management</h2>
+        <p className="text-text-secondary text-sm font-medium">Global oversight of departments, curriculum, and staffing.</p>
       </section>
 
       {/* Admin Stats Grid */}
@@ -23,12 +23,12 @@ export default function AdminAcademic() {
           { label: 'Active Labs', value: '24', icon: <Building size={18} />, color: 'text-green-400', bg: 'bg-green-500/10' },
           { label: 'System Health', value: '99.9%', icon: <Activity size={18} />, color: 'text-orange-400', bg: 'bg-orange-500/10' },
         ].map((stat, idx) => (
-          <div key={idx} className="bg-[#171b27] p-5 rounded-3xl border border-white/5 group hover:bg-[#1b1f2b] transition-all">
+          <div key={idx} className="bg-bg-secondary p-5 rounded-3xl border border-border-subtle group hover:bg-bg-card transition-all shadow-sm">
             <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
               {stat.icon}
             </div>
-            <p className="text-[10px] font-bold text-[#8b919e] uppercase tracking-widest">{stat.label}</p>
-            <h4 className="text-2xl font-black font-headline mt-1">{stat.value}</h4>
+            <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">{stat.label}</p>
+            <h4 className="text-2xl font-black font-headline mt-1 text-text-primary">{stat.value}</h4>
           </div>
         ))}
       </section>
@@ -36,35 +36,35 @@ export default function AdminAcademic() {
       {/* Department Scoreboard */}
       <section className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-bold font-headline">Departmental Performance</h3>
-          <button className="text-blue-400 text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
+          <h3 className="text-xl font-bold font-headline text-text-primary">Departmental Performance</h3>
+          <button className="text-brand text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
             Manage All <ArrowUpRight size={14} />
           </button>
         </div>
         <div className="space-y-4">
           {departments.map((dept, idx) => (
-            <div key={idx} className="bg-[#171b27] p-6 rounded-2xl border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#1d2230] transition-colors group">
+            <div key={idx} className="bg-bg-secondary p-6 rounded-2xl border border-border-subtle flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-bg-card transition-colors group shadow-sm">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#313441] flex items-center justify-center text-blue-400 font-black text-xl border border-white/5">
+                <div className="w-12 h-12 rounded-2xl bg-bg-primary flex items-center justify-center text-brand font-black text-xl border border-border-subtle">
                   {dept.name[0]}
                 </div>
                 <div>
-                  <h4 className="font-bold font-headline">{dept.name}</h4>
-                  <p className="text-xs text-[#8b919e] mt-0.5">Head: {dept.head} • {dept.students} students</p>
+                  <h4 className="font-bold font-headline text-text-primary">{dept.name}</h4>
+                  <p className="text-xs text-text-secondary mt-0.5">Head: {dept.head} • {dept.students} students</p>
                 </div>
               </div>
               <div className="flex items-center gap-6">
                 <div className="text-right">
-                  <p className="text-[10px] font-bold text-[#8b919e] uppercase tracking-widest mb-1">Academic Score</p>
+                  <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">Academic Score</p>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-500 rounded-full" style={{ width: `${dept.score}%` }}></div>
+                    <div className="w-24 h-1.5 bg-bg-primary rounded-full overflow-hidden">
+                      <div className="h-full bg-brand rounded-full" style={{ width: `${dept.score}%` }}></div>
                     </div>
-                    <span className="text-xs font-bold">{dept.score}%</span>
+                    <span className="text-xs font-bold text-text-secondary">{dept.score}%</span>
                   </div>
                 </div>
-                <button className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors border border-white/5">
-                    <Mail size={16} className="text-[#8b919e]" />
+                <button className="p-3 bg-bg-primary hover:bg-bg-card rounded-xl transition-colors border border-border-subtle">
+                    <Mail size={16} className="text-text-secondary" />
                 </button>
               </div>
             </div>

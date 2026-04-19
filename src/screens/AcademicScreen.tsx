@@ -32,24 +32,24 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
   };
 
   return (
-    <div className="bg-[#0f131e] text-[#dfe2f2] min-h-screen selection:bg-[#0a66c2]/30 pb-40">
+    <div className="bg-bg-primary text-text-primary min-h-screen selection:bg-brand/30 pb-40">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 bg-[#0f131e]/90 backdrop-blur-2xl ring-1 ring-white/5 flex justify-between items-center px-6 h-18">
+      <header className="fixed top-0 w-full z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0a66c2] to-[#4da3ff] flex items-center justify-center text-white shadow-lg shadow-blue-900/40 border border-white/10">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-brand-accent flex items-center justify-center text-white shadow-lg shadow-blue-900/40 border border-border-subtle">
             <span className="material-symbols-outlined text-xl">school</span>
           </div>
           <div>
-            <h1 className="text-xl font-black tracking-tighter text-white font-headline leading-none">Academics</h1>
-            <p className="text-[10px] text-[#8b919e] font-bold uppercase tracking-widest mt-1">Vidyora ERP v4</p>
+            <h1 className="text-xl font-black tracking-tighter text-text-primary font-headline leading-none">Academics</h1>
+            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mt-1">Vidyora ERP v4</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-            <button className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Search size={18} className="text-[#8b919e]" />
+            <button className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
+                <Search size={18} className="text-text-secondary" />
             </button>
-            <button className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
-                <Bell size={18} className="text-[#8b919e]" />
+            <button className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
+                <Bell size={18} className="text-text-secondary" />
             </button>
         </div>
       </header>

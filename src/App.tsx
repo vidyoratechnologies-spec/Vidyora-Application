@@ -12,6 +12,12 @@ import VideoConference from './components/VideoConference.tsx';
 import QuizContainer from './components/QuizContainer.tsx';
 import { exportToPDF } from './lib/pdfUtils.ts';
 
+// Detailed Screens
+import AttendanceDetail from './components/academic/detailed/AttendanceDetail.tsx';
+import ExamDetail from './components/academic/detailed/ExamDetail.tsx';
+import ScheduleDetail from './components/academic/detailed/ScheduleDetail.tsx';
+import SubjectSelector from './components/academic/detailed/SubjectSelector.tsx';
+
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
   const [userRole, setUserRole] = useState<UserRole | undefined>(undefined);
@@ -64,7 +70,7 @@ export default function App() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'login':
-        return <LoginScreen onLogin={handleLogin} />;
+        return <LoginScreen onLogin={handleLogin} isDarkMode={isDarkMode} />;
       case 'dashboard':
         return <DashboardScreen navigate={navigate} userRole={userRole!} />;
       case 'academic':
@@ -75,8 +81,22 @@ export default function App() {
         return <TutorScreen navigate={navigate} userRole={userRole} />;
       case 'profile':
         return <ProfileScreen navigate={navigate} userRole={userRole} onLogout={() => navigate('login')} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />;
+      case 'attendance_detail':
+        return <AttendanceDetail onBack={() => navigate('academic')} />;
+      case 'exams_detail':
+        return <ExamDetail onBack={() => navigate('academic')} />;
+      case 'schedule_detail':
+        return <ScheduleDetail onBack={() => navigate('dashboard')} />;
+      case 'marks_detail':
+        return <AttendanceDetail onBack={() => navigate('academic')} />; 
+      case 'rank_detail':
+        return <AttendanceDetail onBack={() => navigate('academic')} />;
+      case 'notes_selector':
+        return <SubjectSelector onBack={() => navigate('academic')} mode="notes" />;
+      case 'test_selector':
+        return <SubjectSelector onBack={() => navigate('academic')} mode="test" />;
       default:
-        return <LoginScreen onLogin={handleLogin} />;
+        return <LoginScreen onLogin={handleLogin} isDarkMode={isDarkMode} />;
     }
   };
 
