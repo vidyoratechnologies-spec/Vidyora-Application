@@ -68,7 +68,7 @@ export default function AccountantAcademic() {
             <h2 className="text-2xl font-black font-headline leading-tight text-text-primary">Revise Academic Fee 2026?</h2>
             <p className="text-text-secondary max-w-sm">Current models suggest a 5% index increase to cover infrastructure expansions in Lab Area B.</p>
           </div>
-          <button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center gap-2 text-sm whitespace-nowrap">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Review Proposed Structure', content: 'Opening fee modeling and forecast interface.' }}))} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center gap-2 text-sm whitespace-nowrap">
               Review Proposed Structure
               <ArrowRight size={18} />
           </button>
@@ -82,14 +82,14 @@ export default function AccountantAcademic() {
                 <AlertCircle className="text-red-500" size={20} />
                 Critical Defaulters
             </h3>
-            <span className="text-xs text-text-secondary font-bold cursor-pointer hover:underline">View All List</span>
+            <span onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Defaulters List', content: 'Loading complete list of fee defaulters with communication logs.' }}))} className="text-xs text-text-secondary font-bold cursor-pointer hover:underline">View All List</span>
         </div>
         <div className="bg-bg-secondary rounded-2xl border border-border-subtle divide-y divide-border-subtle shadow-sm">
             {[
                 { name: 'John Doe', roll: 'BT-2022-012', pending: '₹45,000', days: '60+ days', color: 'text-red-500' },
                 { name: 'Sarah Miller', roll: 'BT-2022-045', pending: '₹12,400', days: '15 days', color: 'text-orange-400' },
             ].map((def, i) => (
-                <div key={i} className="p-4 flex items-center justify-between hover:bg-bg-card transition-colors cursor-pointer group">
+                <div key={i} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Defaulter History', content: `View payment history and send manual reminder to ${def.name}.` }}))} className="p-4 flex items-center justify-between hover:bg-bg-card transition-colors cursor-pointer group">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-bg-primary flex items-center justify-center text-xs font-bold font-headline group-hover:scale-110 transition-transform text-text-primary">
                             {def.name[0]}

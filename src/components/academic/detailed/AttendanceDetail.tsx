@@ -93,11 +93,12 @@ export default function AttendanceDetail({ onBack }: AttendanceDetailProps) {
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: idx * 0.05 }}
                key={idx} 
-               className="bg-bg-secondary p-5 rounded-2xl border border-border-subtle shadow-sm"
+               onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: `${s.full} Details`, content: `Attendance History: Attended ${s.attended} classes out of ${s.total}. Missing sessions occurred on Oct 11, Oct 15, and Nov 2.` }}))}
+               className="bg-bg-secondary p-5 rounded-2xl border border-border-subtle shadow-sm cursor-pointer hover:bg-bg-card transition-colors group"
              >
                 <div className="flex justify-between items-start mb-3">
-                   <h3 className="text-xs font-bold uppercase tracking-tight max-w-[80%] text-text-primary">{s.full}</h3>
-                   <div className="w-6 h-6 rounded-full border border-brand/20 flex items-center justify-center text-brand">
+                   <h3 className="text-xs font-bold uppercase tracking-tight max-w-[80%] text-text-primary group-hover:text-brand transition-colors">{s.full}</h3>
+                   <div className="w-6 h-6 rounded-full border border-brand/20 flex items-center justify-center text-brand group-hover:bg-brand/10 transition-colors">
                       <ChevronRight size={14} />
                    </div>
                 </div>

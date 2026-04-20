@@ -39,8 +39,9 @@ export default function FeedScreen({ navigate, userRole }: FeedScreenProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-            <button className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-accent text-white flex items-center justify-center shadow-lg shadow-blue-900/40 active:scale-95 transition-transform">
-                <Plus size={20} />
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Post Circular', content: 'Here you can write a new circular, attach documents, and select target audience (Students, Staff, or All).' }}))} className="relative overflow-hidden w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-accent text-white flex items-center justify-center shadow-lg shadow-blue-900/40 active:scale-95 transition-transform group">
+                <Plus size={20} className="relative z-10" />
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
         </div>
       </header>

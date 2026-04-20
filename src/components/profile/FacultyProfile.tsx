@@ -12,7 +12,7 @@ export default function FacultyProfile({ onLogout, toggleTheme, isDarkMode }: Fa
       <section className="text-center">
         <div className="relative inline-block">
           <img src="https://picsum.photos/seed/faculty/200/200" alt="Faculty" className="w-32 h-32 rounded-3xl border-4 border-brand/20 object-cover shadow-2xl" referrerPolicy="no-referrer" />
-          <button className="absolute -bottom-2 -right-2 p-3 bg-brand rounded-2xl text-white shadow-lg active:scale-95 transition-transform border border-white/20">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Edit Avatar', content: 'Upload a new profile picture.' }}))} className="absolute -bottom-2 -right-2 p-3 bg-brand rounded-2xl text-white shadow-lg active:scale-95 transition-transform border border-white/20">
             <Edit3 size={16} />
           </button>
         </div>

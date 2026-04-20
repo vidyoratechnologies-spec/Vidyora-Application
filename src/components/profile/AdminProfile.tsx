@@ -12,7 +12,7 @@ export default function AdminProfile({ onLogout, toggleTheme, isDarkMode }: Admi
       <section className="text-center">
         <div className="relative inline-block">
           <img src="https://picsum.photos/seed/admin/200/200" alt="Admin" className="w-32 h-32 rounded-3xl border-4 border-brand/20 object-cover shadow-2xl" referrerPolicy="no-referrer" />
-          <button className="absolute -bottom-2 -right-2 p-3 bg-brand rounded-2xl text-white shadow-lg active:scale-95 transition-transform border border-white/20">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Edit Avatar', content: 'Upload a new profile picture.' }}))} className="absolute -bottom-2 -right-2 p-3 bg-brand rounded-2xl text-white shadow-lg active:scale-95 transition-transform border border-white/20">
             <Edit3 size={16} />
           </button>
         </div>
@@ -66,7 +66,7 @@ export default function AdminProfile({ onLogout, toggleTheme, isDarkMode }: Admi
       </div>
 
       <div className="flex gap-4">
-        <button className="flex-1 py-4 bg-bg-secondary border border-border-subtle text-xs font-bold uppercase tracking-widest rounded-2xl hover:bg-white/5 text-text-primary transition-colors"> Security Settings </button>
+        <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Security Settings', content: 'Manage 2FA, API keys, and device access.' }}))} className="flex-1 py-4 bg-bg-secondary border border-border-subtle text-xs font-bold uppercase tracking-widest rounded-2xl hover:bg-white/5 text-text-primary transition-colors"> Security Settings </button>
         <button 
           onClick={onLogout}
           className="flex-1 py-4 border border-red-500/20 text-red-500 font-bold rounded-2xl hover:bg-red-500/10 transition-colors flex items-center justify-center gap-2"

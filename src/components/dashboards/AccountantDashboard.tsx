@@ -50,7 +50,7 @@ export default function AccountantDashboard({ navigate }: AccountantDashboardPro
            </div>
            <p className="text-xs text-[#94a3b8] leading-relaxed">142 students currently have pending dues exceeding 30 days.</p>
            <div className="space-y-2 mt-6">
-             <button className="w-full py-4 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest rounded-2xl transition-all border border-orange-500/20 active:scale-95">
+             <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Bulk Reminders', content: 'Sending out SMS and Email reminders for overdue fees.' }}))} className="w-full py-4 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest rounded-2xl transition-all border border-orange-500/20 active:scale-95">
                Send Bulk Reminders
              </button>
              <button 
@@ -79,7 +79,7 @@ export default function AccountantDashboard({ navigate }: AccountantDashboardPro
                 <p className="text-xs text-[#94a3b8] font-medium italic mt-0.5">"Predicted revenue for November is ₹38.4L based on historical enrollment & early payments."</p>
              </div>
           </div>
-          <button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-900/20 active:scale-95">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Trend Analysis', content: 'Opening AI forecasting details and parameters.' }}))} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl text-xs uppercase tracking-widest transition-all shadow-lg shadow-emerald-900/20 active:scale-95">
               Analyze Trends
           </button>
         </div>
@@ -101,10 +101,10 @@ export default function AccountantDashboard({ navigate }: AccountantDashboardPro
                 >
                     <Download size={18} />
                 </button>
-                <button className="p-2 bg-white/5 hover:bg-white/10 rounded-xl text-[#8b919e] border border-white/5">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Filter', content: 'Filter transaction by date, type or status.' }}))} className="p-2 bg-white/5 hover:bg-white/10 rounded-xl text-[#8b919e] border border-white/5">
                     <Filter size={18} />
                 </button>
-                <button className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'New Entry', content: 'Opening form to manually log new payments or fines.' }}))} className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                     <Plus size={16} /> New Entry
                 </button>
             </div>
@@ -123,7 +123,7 @@ export default function AccountantDashboard({ navigate }: AccountantDashboardPro
                     </thead>
                     <tbody className="divide-y divide-white/5">
                         {transactions.map((txn, idx) => (
-                            <tr key={idx} className="hover:bg-white/5 transition-colors group cursor-pointer">
+                            <tr key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Transaction Details', content: `View complete details and generate receipt for ${txn.id}.` }}))} className="hover:bg-white/5 transition-colors group cursor-pointer">
                                 <td className="p-5 text-xs font-mono text-[#a8c8ff]">{txn.id}</td>
                                 <td className="p-5">
                                     <span className="text-xs font-bold block">{txn.user}</span>

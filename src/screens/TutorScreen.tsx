@@ -50,7 +50,7 @@ export default function TutorScreen({ navigate, userRole }: TutorScreenProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-            <button className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-brand-accent/5 transition-colors">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'AI Settings', content: 'Manage AI persona, data retention, and privacy policies.' }}))} className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-brand-accent/5 transition-colors">
                 <Settings size={18} className="text-text-secondary" />
             </button>
         </div>

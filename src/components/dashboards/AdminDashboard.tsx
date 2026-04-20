@@ -70,7 +70,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b919e]" size={16} />
             <input className="bg-[#171b27] border border-white/5 rounded-xl py-2 pl-10 pr-4 text-sm w-full md:w-64 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="Search students, faculty..." />
           </div>
-          <button className="bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-xl shadow-lg transition-all active:scale-95">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Add Record', content: 'Select record type to add: New Student, New Faculty, or Course Syllabus.' }}))} className="bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-xl shadow-lg transition-all active:scale-95">
             <Plus size={20} />
           </button>
         </div>
@@ -84,7 +84,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
           { label: 'Daily Attendance', value: '89%', icon: <Calendar size={18} />, color: 'bg-green-500/10 text-green-500' },
           { label: 'Critical Tasks', value: '7', icon: <AlertCircle size={18} />, color: 'bg-red-500/10 text-red-500' },
         ].map((stat, idx) => (
-          <div key={idx} className="bg-bg-secondary p-5 rounded-2xl border border-border-subtle hover:bg-bg-card transition-colors group cursor-pointer shadow-sm">
+          <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: stat.label, content: `Viewing detailed breakdown and historical data for ${stat.label} (${stat.value}).` }}))} className="bg-bg-secondary p-5 rounded-2xl border border-border-subtle hover:bg-bg-card transition-colors group cursor-pointer shadow-sm">
             <div className={`w-9 h-9 flex items-center justify-center rounded-lg mb-4 ${stat.color} group-hover:scale-110 transition-transform`}>
               {stat.icon}
             </div>
@@ -101,7 +101,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
             <span className="material-symbols-outlined text-orange-400 text-sm fill-1">auto_awesome</span>
             AI Predictive Engine
             </h3>
-            <Filter size={18} className="text-text-secondary cursor-pointer" />
+            <Filter onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Filter Alerts', content: 'Filter predictive alerts by severity or department.' }}))} size={18} className="text-text-secondary cursor-pointer hover:text-text-primary transition-colors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {alerts.map((alert, idx) => (
@@ -113,7 +113,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
                 <h4 className="font-bold font-headline mb-2 text-text-primary">{alert.title}</h4>
                 <p className="text-xs text-text-secondary leading-relaxed">{alert.detail}</p>
               </div>
-              <button className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors group">
+              <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: alert.title, content: `Executing action: Resolving issue related to ${alert.detail}` }}))} className="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors group">
                 Take Action
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
@@ -154,7 +154,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
                     { user: 'Mark (Accounts)', msg: 'Fee reconciliation for March complete.', time: '1h ago' },
                     { user: 'Dean Gupta', msg: 'Annual symposium dates finalized.', time: '3h ago' },
                 ].map((chat, idx) => (
-                    <div key={idx} className="flex gap-4 p-3 hover:bg-bg-primary rounded-xl transition-colors cursor-pointer group">
+                    <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Communication Stream', content: `Opening secure chat channel with ${chat.user}.` }}))} className="flex gap-4 p-3 hover:bg-bg-primary rounded-xl transition-colors cursor-pointer group">
                         <div className="w-10 h-10 rounded-full bg-brand/10 flex flex-shrink-0 items-center justify-center text-brand font-bold border border-brand/20">
                             {chat.user[0]}
                         </div>
@@ -168,7 +168,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
                     </div>
                 ))}
             </div>
-            <button className="w-full py-3 bg-bg-primary hover:bg-bg-card text-xs font-bold uppercase tracking-widest text-brand-accent rounded-xl transition-colors border border-border-subtle">
+            <button onClick={() => navigate('feed')} className="w-full py-3 bg-bg-primary hover:bg-bg-card text-xs font-bold uppercase tracking-widest text-brand-accent rounded-xl transition-colors border border-border-subtle">
                 View All Announcements
             </button>
         </div>

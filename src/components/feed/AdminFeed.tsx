@@ -29,11 +29,11 @@ export default function AdminFeed() {
       <div className="space-y-4">
         <div className="flex justify-between items-center px-2">
             <h3 className="text-lg font-bold font-headline text-text-primary">Recent Circulars</h3>
-            <span className="text-xs text-brand font-bold uppercase tracking-widest cursor-pointer hover:underline">Download All</span>
+            <span onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Download Complete Repository', content: 'Packaging all recent circulars into a single ZIP file for offline administrative review.' }}))} className="text-xs text-brand font-bold uppercase tracking-widest cursor-pointer hover:underline">Download All</span>
         </div>
         
         {notices.map((notice, idx) => (
-          <div key={idx} className="bg-bg-secondary p-5 rounded-3xl border border-border-subtle flex items-center justify-between group hover:bg-bg-card transition-all cursor-pointer shadow-sm">
+          <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: notice.title, content: `Viewing full details of ${notice.title} from ${notice.dept}. Type: ${notice.type}, Priority: ${notice.priority}.` }}))} className="bg-bg-secondary p-5 rounded-3xl border border-border-subtle flex items-center justify-between group hover:bg-bg-card transition-all cursor-pointer shadow-sm">
             <div className="flex items-center gap-4">
                 <div className={`p-3 rounded-2xl bg-bg-primary text-text-secondary group-hover:bg-brand/20 group-hover:text-brand transition-all`}>
                     <FileText size={20} />

@@ -22,7 +22,7 @@ export default function StudentFeed() {
              Official Announcement
          </div>
          <h3 className="text-lg font-bold text-white leading-tight">Holiday Notice: Autumn break starts from Oct 28th.</h3>
-         <button className="mt-4 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold text-white transition-all">Read Full Circular</button>
+         <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Holiday Notice: Autumn break starts from Oct 28th.', content: 'The institution will remain closed from Oct 28th to Nov 4th for the autumn break. Regular classes will resume on Nov 5th.' }}))} className="mt-4 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold text-white transition-all">Read Full Circular</button>
       </div>
 
       {/* Feed List */}
@@ -37,19 +37,19 @@ export default function StudentFeed() {
                         <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest">{post.time}</p>
                     </div>
                 </div>
-                <MoreHorizontal size={18} className="text-text-secondary" />
+                <MoreHorizontal onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Post Options', content: 'Report, mute, or copy link to this post.' }}))} size={18} className="text-text-secondary cursor-pointer hover:text-text-primary transition-colors" />
             </div>
             <p className="text-sm text-text-primary/90 leading-relaxed">{post.content}</p>
             <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
                 <div className="flex items-center gap-6">
-                    <button className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-red-400 transition-colors">
+                    <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Like Post', content: 'You liked this post.' }}))} className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-red-500 transition-colors">
                         <Heart size={16} /> {post.likes}
                     </button>
-                    <button className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-brand transition-colors">
+                    <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Comments', content: 'Opening comment thread.' }}))} className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-brand transition-colors">
                         <MessageSquare size={16} /> {post.comments}
                     </button>
                 </div>
-                <Share2 size={16} className="text-text-secondary cursor-pointer hover:text-text-primary" />
+                <Share2 onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Share Post', content: 'Sharing options opened.' }}))} size={16} className="text-text-secondary cursor-pointer hover:text-text-primary transition-colors" />
             </div>
           </div>
         ))}

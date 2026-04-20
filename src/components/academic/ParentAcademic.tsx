@@ -1,7 +1,12 @@
 import { GraduationCap, BookOpen, Clock, ArrowRight, User, TrendingUp } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Screen } from '../../types.ts';
 
-export default function ParentAcademic() {
+interface ParentAcademicProps {
+  navigate: (screen: Screen) => void;
+}
+
+export default function ParentAcademic({ navigate }: ParentAcademicProps) {
   const children = [
     { name: 'Arjun Kudikala', grade: 'Grade 10-A', attendance: '96%', gpa: '8.4', status: 'Excellent' },
   ];
@@ -15,15 +20,18 @@ export default function ParentAcademic() {
 
       {/* Ward Cards */}
       {children.map((child, idx) => (
-        <div key={idx} className="bg-bg-secondary rounded-3xl p-6 border border-border-subtle space-y-6 shadow-sm">
-            <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-bg-primary flex items-center justify-center text-brand font-headline font-black text-2xl border border-border-subtle">
-                    {child.name[0]}
-                </div>
-                <div>
-                   <h3 className="text-xl font-bold font-headline text-text-primary">{child.name}</h3>
-                   <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">{child.grade}</p>
-                </div>
+        <div key={idx} onClick={() => navigate('attendance_detail')} className="bg-bg-secondary rounded-3xl p-6 border border-border-subtle space-y-6 shadow-sm cursor-pointer hover:bg-bg-card transition-colors group">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-bg-primary flex items-center justify-center text-brand font-headline font-black text-2xl border border-border-subtle group-hover:scale-105 transition-transform">
+                      {child.name[0]}
+                  </div>
+                  <div>
+                     <h3 className="text-xl font-bold font-headline text-text-primary group-hover:text-brand transition-colors">{child.name}</h3>
+                     <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">{child.grade}</p>
+                  </div>
+              </div>
+              <ArrowRight size={20} className="text-text-secondary group-hover:text-brand transition-colors" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -54,24 +62,27 @@ export default function ParentAcademic() {
             </div>
 
             <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('export-pdf', { 
-                detail: { 
-                  title: `Report Card: ${child.name}`, 
-                  content: [
-                    `Student: ${child.name}`,
-                    `Grade: ${child.grade}`,
-                    `Attendance: ${child.attendance}`,
-                    `GPA: ${child.gpa}`,
-                    `Status: ${child.status}`,
-                    '',
-                    'Latest Assessment:',
-                    'Mathematics Mid-Term: 92/100 (Distinction)',
-                    '',
-                    'Professor Feedback: Excellent performance and consistency in class participation.'
-                  ] 
-                } 
-              }))}
-              className="w-full py-4 bg-bg-primary hover:bg-bg-card rounded-2xl text-xs font-bold uppercase tracking-widest transition-all border border-border-subtle flex items-center justify-center gap-2 text-text-primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.dispatchEvent(new CustomEvent('export-pdf', { 
+                  detail: { 
+                    title: `Report Card: ${child.name}`, 
+                    content: [
+                      `Student: ${child.name}`,
+                      `Grade: ${child.grade}`,
+                      `Attendance: ${child.attendance}`,
+                      `GPA: ${child.gpa}`,
+                      `Status: ${child.status}`,
+                      '',
+                      'Latest Assessment:',
+                      'Mathematics Mid-Term: 92/100 (Distinction)',
+                      '',
+                      'Professor Feedback: Excellent performance and consistency in class participation.'
+                    ] 
+                  } 
+                }));
+              }}
+              className="w-full py-4 bg-bg-primary hover:bg-bg-card rounded-2xl text-xs font-bold uppercase tracking-widest transition-all border border-border-subtle flex items-center justify-center gap-2 text-text-primary group-hover:border-brand/30"
             >
                 Detailed Report Card <ArrowRight size={14} />
             </button>

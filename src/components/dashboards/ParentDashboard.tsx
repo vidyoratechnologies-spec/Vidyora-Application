@@ -30,11 +30,11 @@ export default function ParentDashboard({ navigate }: ParentDashboardProps) {
             Live Session
           </button>
           <div className="flex gap-4 flex-1 md:flex-none">
-            <div className="flex-1 text-center bg-white/5 px-6 py-2 rounded-2xl border border-white/5">
+            <div onClick={() => navigate('attendance_detail')} className="flex-1 text-center bg-white/5 px-6 py-2 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer active:scale-95">
               <p className="text-[9px] font-bold text-[#8b919e] uppercase tracking-[0.15em] mb-1">Attendance</p>
               <p className="text-xl font-black font-headline text-green-400">92%</p>
             </div>
-            <div className="flex-1 text-center bg-white/5 px-6 py-2 rounded-2xl border border-white/5">
+            <div onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Rank Details', content: 'Harshith holds state rank #12. This rank is calculated based on cumulative GPA across standard assessments.' }}))} className="flex-1 text-center bg-white/5 px-6 py-2 rounded-2xl border border-white/5 hover:bg-white/10 transition-colors cursor-pointer active:scale-95">
               <p className="text-[9px] font-bold text-[#8b919e] uppercase tracking-[0.15em] mb-1">Rank</p>
               <p className="text-xl font-black font-headline text-[#a8c8ff]">#12</p>
             </div>
@@ -70,12 +70,12 @@ export default function ParentDashboard({ navigate }: ParentDashboardProps) {
       {/* Quick Action Grid */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Exams', icon: <Award className="text-[#a8c8ff]" />, bg: 'bg-[#a8c8ff]/10', color: 'text-[#a8c8ff]' },
-          { label: 'Attendance', icon: <Calendar className="text-green-500" />, bg: 'bg-green-500/10', color: 'text-green-500' },
-          { label: 'Connect Faculty', icon: <MessageSquare className="text-purple-400" />, bg: 'bg-purple-500/10', color: 'text-purple-400' },
-          { label: 'Fees Portal', icon: <IndianRupee className="text-orange-400" />, bg: 'bg-orange-500/10', color: 'text-orange-400' },
+          { label: 'Exams', icon: <Award className="text-[#a8c8ff]" />, bg: 'bg-[#a8c8ff]/10', color: 'text-[#a8c8ff]', action: () => navigate('exams_detail') },
+          { label: 'Attendance', icon: <Calendar className="text-green-500" />, bg: 'bg-green-500/10', color: 'text-green-500', action: () => navigate('attendance_detail') },
+          { label: 'Connect Faculty', icon: <MessageSquare className="text-purple-400" />, bg: 'bg-purple-500/10', color: 'text-purple-400', action: () => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Connect Faculty', content: 'Select a faculty member to initiate a direct message or schedule a consultation session.' }})) },
+          { label: 'Fees Portal', icon: <IndianRupee className="text-orange-400" />, bg: 'bg-orange-500/10', color: 'text-orange-400', action: () => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Fees Portal', content: 'View detailed fee breakdowns, download receipts, and manage upcoming semester payments securely.' }})) },
         ].map((action, i) => (
-          <div key={i} className="bg-[#171b27] p-5 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center space-y-3 cursor-pointer hover:bg-[#1b1f2b] transition-all group active:scale-95">
+          <div key={i} onClick={action.action} className="bg-[#171b27] p-5 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center space-y-3 cursor-pointer hover:bg-[#1b1f2b] transition-all group active:scale-95">
             <div className={`w-12 h-12 ${action.bg} rounded-xl flex items-center justify-center transition-transform group-hover:scale-110`}>
               {action.icon}
             </div>
@@ -96,7 +96,7 @@ export default function ParentDashboard({ navigate }: ParentDashboardProps) {
                     { label: 'New Mark Entry', date: 'Oct 12', desc: 'Semester-I Internal Marks released.', icon: <Award size={14} />, color: 'text-blue-400' },
                     { label: 'Attendance Alert', date: 'Oct 09', desc: 'Absent for Chemistry class today.', icon: <AlertTriangle size={14} />, color: 'text-orange-400' },
                 ].map((alert, i) => (
-                    <div key={i} className="flex gap-4 p-3 hover:bg-white/5 rounded-xl transition-colors cursor-pointer border border-transparent hover:border-white/5 group">
+                    <div key={i} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: alert.label, content: alert.desc }}))} className="flex gap-4 p-3 hover:bg-white/5 rounded-xl transition-colors cursor-pointer border border-transparent hover:border-white/5 group">
                         <div className={`w-10 h-10 rounded-xl bg-white/5 flex flex-shrink-0 items-center justify-center ${alert.color}`}>
                             {alert.icon}
                         </div>
@@ -123,7 +123,10 @@ export default function ParentDashboard({ navigate }: ParentDashboardProps) {
                   <span className="px-3 py-1 bg-red-500/10 text-red-500 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-red-500/20">Pending</span>
                 </div>
                 <p className="text-xs text-[#94a3b8] mb-6">Semester II Transport & Library Fee due by Oct 25.</p>
-                <button className="w-full py-4 bg-[#ffb68e] hover:bg-[#fca57c] text-[#422006] font-bold rounded-2xl shadow-xl shadow-[#ffb68e]/10 active:scale-95 transition-all text-sm flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Payment Gateway Integration', content: 'Redirecting to secure payment portal (Razorpay/Stripe) to process the due amount of ₹14,500.' }}))}
+                  className="w-full py-4 bg-[#ffb68e] hover:bg-[#fca57c] text-[#422006] font-bold rounded-2xl shadow-xl shadow-[#ffb68e]/10 active:scale-95 transition-all text-sm flex items-center justify-center gap-2"
+                >
                     Pay Now <ChevronRight size={18} />
                 </button>
             </div>

@@ -19,9 +19,9 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
 
   const stats = [
     { label: 'Total Institutions', value: '18', icon: <Building2 className="text-blue-400" />, trend: '+2 this year', interactive: true },
-    { label: 'Total Enrollments', value: '45.2k', icon: <Users className="text-purple-400" />, trend: '+8% vs LY' },
-    { label: 'Total Revenue', value: '₹2.4Cr', icon: <CreditCard className="text-green-400" />, trend: '+14% growth' },
-    { label: 'System Uptime', value: '99.9%', icon: <Activity className="text-orange-400" />, trend: 'Healthy' },
+    { label: 'Total Enrollments', value: '45.2k', icon: <Users className="text-purple-400" />, trend: '+8% vs LY', interactive: true },
+    { label: 'Total Revenue', value: '₹2.4Cr', icon: <CreditCard className="text-green-400" />, trend: '+14% growth', interactive: true },
+    { label: 'System Uptime', value: '99.9%', icon: <Activity className="text-orange-400" />, trend: 'Healthy', interactive: true },
   ];
 
   return (
@@ -31,7 +31,10 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
         {stats.map((stat, idx) => (
           <div 
             key={idx} 
-            onClick={() => stat.interactive && setShowBranches(true)}
+            onClick={() => {
+              if (idx === 0) setShowBranches(true);
+              else window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: stat.label, content: `Viewing analytics for ${stat.label} (${stat.value}).` }}));
+            }}
             className={`bg-bg-secondary p-4 rounded-2xl border border-border-subtle hover:border-brand/30 transition-all group shadow-sm ${stat.interactive ? 'cursor-pointer' : ''}`}
           >
             <div className="w-10 h-10 rounded-xl bg-brand/5 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -53,7 +56,7 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
              <Edit3 size={16} className="text-brand" />
              Edit Institution Fees
           </button>
-          <button className="flex items-center gap-2 bg-bg-secondary text-text-primary px-5 py-3 rounded-xl border border-border-subtle hover:bg-bg-card transition-all font-bold text-xs uppercase tracking-widest shadow-sm active:scale-95">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Network Configuration', content: 'Advanced network policy routing and DNS configurations. This action requires Level 4 clearance.' }}))} className="flex items-center gap-2 bg-bg-secondary text-text-primary px-5 py-3 rounded-xl border border-border-subtle hover:bg-bg-card transition-all font-bold text-xs uppercase tracking-widest shadow-sm active:scale-95">
              <Globe size={16} className="text-purple-400" />
              Network Config
           </button>
@@ -186,7 +189,7 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
       <section className="space-y-6">
         <div className="flex justify-between items-center">
           <h3 className="text-xl font-bold font-headline text-text-primary">Institution Health</h3>
-          <button className="text-brand text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Manage All Institutions', content: 'Opening global centralized dashboard for modifying branch-level permissions and allocations.' }}))} className="text-brand text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
             Manage All <ArrowUpRight size={14} />
           </button>
         </div>

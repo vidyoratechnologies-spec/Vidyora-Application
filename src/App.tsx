@@ -10,6 +10,7 @@ import ProfileScreen from './screens/ProfileScreen.tsx';
 import BottomNav from './components/BottomNav.tsx';
 import VideoConference from './components/VideoConference.tsx';
 import QuizContainer from './components/QuizContainer.tsx';
+import GenericModal from './components/GenericModal.tsx';
 import { exportToPDF } from './lib/pdfUtils.ts';
 
 // Detailed Screens
@@ -26,6 +27,7 @@ export default function App() {
   const [videoCallLabel, setVideoCallLabel] = useState('Course Session');
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [quizGrade, setQuizGrade] = useState<'10th' | '12th'>('12th');
+  const [genericModal, setGenericModal] = useState({ isOpen: false, title: '', content: '' });
 
   useEffect(() => {
     const handlePdfExport = (e: any) => {
@@ -42,14 +44,20 @@ export default function App() {
       setIsQuizOpen(true);
     };
 
+    const handleShowModal = (e: any) => {
+      setGenericModal({ isOpen: true, title: e.detail.title, content: e.detail.content });
+    };
+
     window.addEventListener('export-pdf', handlePdfExport);
     window.addEventListener('start-video-call', handleVideoCall);
     window.addEventListener('start-quiz', handleStartQuiz);
+    window.addEventListener('show-modal', handleShowModal);
 
     return () => {
       window.removeEventListener('export-pdf', handlePdfExport);
       window.removeEventListener('start-video-call', handleVideoCall);
       window.removeEventListener('start-quiz', handleStartQuiz);
+      window.removeEventListener('show-modal', handleShowModal);
     };
   }, []);
 
@@ -82,15 +90,15 @@ export default function App() {
       case 'profile':
         return <ProfileScreen navigate={navigate} userRole={userRole} onLogout={() => navigate('login')} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />;
       case 'attendance_detail':
-        return <AttendanceDetail onBack={() => navigate('academic')} />;
+        return <AttendanceDetail onBack={() => userRole === 'parent' ? navigate('dashboard') : navigate('academic')} />;
       case 'exams_detail':
         return <ExamDetail onBack={() => navigate('academic')} />;
       case 'schedule_detail':
         return <ScheduleDetail onBack={() => navigate('dashboard')} />;
       case 'marks_detail':
-        return <AttendanceDetail onBack={() => navigate('academic')} />; 
+        return <AttendanceDetail onBack={() => navigate('dashboard')} />; 
       case 'rank_detail':
-        return <AttendanceDetail onBack={() => navigate('academic')} />;
+        return <AttendanceDetail onBack={() => navigate('dashboard')} />;
       case 'notes_selector':
         return <SubjectSelector onBack={() => navigate('academic')} mode="notes" />;
       case 'test_selector':
@@ -128,6 +136,13 @@ export default function App() {
         isOpen={isQuizOpen} 
         onClose={() => setIsQuizOpen(false)} 
         grade={quizGrade}
+      />
+
+      <GenericModal 
+        isOpen={genericModal.isOpen} 
+        onClose={() => setGenericModal(prev => ({ ...prev, isOpen: false }))} 
+        title={genericModal.title} 
+        content={genericModal.content} 
       />
     </div>
   );

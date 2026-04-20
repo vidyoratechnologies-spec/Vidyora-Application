@@ -51,7 +51,7 @@ export default function DashboardScreen({ navigate, userRole }: DashboardScreenP
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button className="w-9 h-9 flex items-center justify-center rounded-xl bg-bg-secondary text-brand-accent hover:bg-bg-card transition-colors border border-border-subtle relative">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Notifications', content: 'You have 3 unread critical alerts regarding recent updates.' }}))} className="w-9 h-9 flex items-center justify-center rounded-xl bg-bg-secondary text-brand-accent hover:bg-bg-card transition-colors border border-border-subtle relative">
             <Bell size={18} />
             <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-bg-secondary"></span>
           </button>

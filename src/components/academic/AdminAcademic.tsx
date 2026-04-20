@@ -23,7 +23,7 @@ export default function AdminAcademic() {
           { label: 'Active Labs', value: '24', icon: <Building size={18} />, color: 'text-green-400', bg: 'bg-green-500/10' },
           { label: 'System Health', value: '99.9%', icon: <Activity size={18} />, color: 'text-orange-400', bg: 'bg-orange-500/10' },
         ].map((stat, idx) => (
-          <div key={idx} className="bg-bg-secondary p-5 rounded-3xl border border-border-subtle group hover:bg-bg-card transition-all shadow-sm">
+          <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: stat.label, content: `Viewing global analytics and detailed breakdown. Current state: ${stat.value}` }}))} className="bg-bg-secondary p-5 rounded-3xl border border-border-subtle group hover:bg-bg-card transition-all shadow-sm cursor-pointer active:scale-95">
             <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
               {stat.icon}
             </div>
@@ -37,7 +37,7 @@ export default function AdminAcademic() {
       <section className="space-y-6">
         <div className="flex justify-between items-center">
           <h3 className="text-xl font-bold font-headline text-text-primary">Departmental Performance</h3>
-          <button className="text-brand text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Manage Departments', content: 'Opening global department settings and metric configurations.' }}))} className="text-brand text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:underline">
             Manage All <ArrowUpRight size={14} />
           </button>
         </div>
@@ -63,7 +63,7 @@ export default function AdminAcademic() {
                     <span className="text-xs font-bold text-text-secondary">{dept.score}%</span>
                   </div>
                 </div>
-                <button className="p-3 bg-bg-primary hover:bg-bg-card rounded-xl transition-colors border border-border-subtle">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Contact HOD', content: `Initiating encrypted communication with ${dept.head}.` }}))} className="p-3 bg-bg-primary hover:bg-bg-card rounded-xl transition-colors border border-border-subtle">
                     <Mail size={16} className="text-text-secondary" />
                 </button>
               </div>

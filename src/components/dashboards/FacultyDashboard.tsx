@@ -49,11 +49,11 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
             <p className="text-[#94a3b8] text-sm font-medium">You have <span className="text-orange-400 font-bold underline underline-offset-4">3 classes</span> scheduled for today.</p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all active:scale-95 flex items-center gap-2">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Mark Attendance', content: 'Quickly record proxy attendance or invoke biometric scanners for the current live class.' }}))} className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all active:scale-95 flex items-center gap-2">
                 <PlusCircle size={18} />
                 Mark Attendance
             </button>
-            <button className="bg-white/5 hover:bg-white/10 text-white px-2 py-3 rounded-xl border border-white/5 transition-colors">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Attendance Ledger', content: 'View detailed log of past attendance records for all your classes.' }}))} className="bg-white/5 hover:bg-white/10 text-white px-2 py-3 rounded-xl border border-white/5 transition-colors">
                 <ListChecks size={20} />
             </button>
           </div>
@@ -93,7 +93,7 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
                       Take Class
                     </button>
                   )}
-                  <button className="text-[#a8c8ff] text-xs font-bold uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Class Details', content: 'View detailed student list, historical attendance, and continuous evaluation records for this batch.' }}))} className="text-[#a8c8ff] text-xs font-bold uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     View Detail <ArrowRight size={14} />
                   </button>
                 </div>
@@ -151,7 +151,7 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
                   </div>
                 ))}
                 <div className="flex gap-3 pt-4">
-                    <button className="flex-1 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold uppercase tracking-widest text-[#a8c8ff] transition-colors flex items-center justify-center gap-2">
+                    <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Edit Questions', content: 'Opening question editor interface for manual refinement.' }}))} className="flex-1 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold uppercase tracking-widest text-[#a8c8ff] transition-colors flex items-center justify-center gap-2">
                         <PenTool size={14} /> Edit Questions
                     </button>
                     <button 

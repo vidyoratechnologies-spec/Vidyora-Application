@@ -16,7 +16,7 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
   const renderRoleAcademic = () => {
     switch (userRole) {
       case 'student':
-        return <StudentAcademic />;
+        return <StudentAcademic navigate={navigate} />;
       case 'faculty':
         return <FacultyAcademic />;
       case 'admin':
@@ -25,9 +25,9 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
       case 'accountant':
         return <AccountantAcademic />;
       case 'parent':
-        return <ParentAcademic />;
+        return <ParentAcademic navigate={navigate} />;
       default:
-        return <StudentAcademic />;
+        return <StudentAcademic navigate={navigate} />;
     }
   };
 
@@ -45,10 +45,10 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
           </div>
         </div>
         <div className="flex items-center gap-2">
-            <button className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Search Academics', content: 'Search across your academic records, syllabı, and modules.' }}))} className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
                 <Search size={18} className="text-text-secondary" />
             </button>
-            <button className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Notifications', content: 'You have no new academic alerts.' }}))} className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-subtle flex items-center justify-center hover:bg-bg-card transition-colors">
                 <Bell size={18} className="text-text-secondary" />
             </button>
         </div>

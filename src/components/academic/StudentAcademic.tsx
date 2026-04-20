@@ -1,6 +1,11 @@
 import { ArrowUp, Video } from 'lucide-react'; 
+import { Screen } from '../../types.ts';
 
-export default function StudentAcademic() {
+interface StudentAcademicProps {
+  navigate: (screen: Screen) => void;
+}
+
+export default function StudentAcademic({ navigate }: StudentAcademicProps) {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
         {/* User Specific Landing */}
@@ -22,12 +27,12 @@ export default function StudentAcademic() {
             <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-white/20 rounded-full blur-3xl"></div>
           </div>
 
-          <div className="p-4 rounded-3xl bg-bg-secondary hover:bg-bg-card transition-colors group border border-border-subtle">
+          <div onClick={() => navigate('exams_detail')} className="p-4 rounded-3xl bg-bg-secondary hover:bg-bg-card transition-colors group border border-border-subtle cursor-pointer">
             <span className="material-symbols-outlined text-brand-accent mb-3">quiz</span>
             <p className="text-xs font-semibold text-text-secondary font-headline uppercase tracking-wider mb-1">My Exams</p>
             <div className="flex items-center gap-1.5 font-bold text-text-primary">12 <span className="text-[10px] opacity-60 font-normal">total</span></div>
           </div>
-          <div className="p-4 rounded-3xl bg-bg-secondary hover:bg-bg-card transition-colors border border-border-subtle">
+          <div onClick={() => navigate('attendance_detail')} className="p-4 rounded-3xl bg-bg-secondary hover:bg-bg-card transition-colors border border-border-subtle cursor-pointer">
             <span className="material-symbols-outlined text-brand-accent mb-3">calendar_today</span>
             <p className="text-xs font-semibold text-text-secondary font-headline uppercase tracking-wider mb-1">Attendance</p>
             <div className="flex items-baseline gap-1.5 font-bold text-text-primary">94% <span className="text-[10px] opacity-60 font-normal">avg</span></div>
@@ -38,7 +43,7 @@ export default function StudentAcademic() {
         <section>
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-2xl font-bold font-headline text-text-primary">Today's Schedule</h3>
-            <span className="text-brand text-xs font-bold uppercase tracking-widest cursor-pointer hover:underline">Full Calendar</span>
+            <span onClick={() => navigate('schedule_detail')} className="text-brand text-xs font-bold uppercase tracking-widest cursor-pointer hover:underline">Full Calendar</span>
           </div>
           <div className="space-y-4">
             <div className="relative p-6 rounded-3xl bg-bg-secondary border border-border-subtle shadow-sm ring-1 ring-inset ring-white/5">

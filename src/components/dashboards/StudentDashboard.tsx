@@ -144,7 +144,7 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
               { title: 'Physics Chapter 3', time: 'Yesterday', icon: 'menu_book', color: 'text-orange-500', bg: 'bg-orange-500/10', badge: '+50 XP', subBadge: 'Mastered' },
               { title: 'Chem Discussion', time: 'Active Now', icon: 'forum', color: 'text-brand-accent', bg: 'bg-brand-accent/10', badge: 'Active', subBadge: '12 Online', active: true },
             ].map((milestone, idx) => (
-              <div key={idx} className="group flex items-center justify-between p-5 bg-bg-secondary hover:bg-bg-card transition-all cursor-pointer rounded-2xl border border-border-subtle shadow-sm">
+              <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: milestone.title, content: `Viewing detailed breakdown of ${milestone.title}. Status: ${milestone.badge}` }}))} className="group flex items-center justify-between p-5 bg-bg-secondary hover:bg-bg-card transition-all cursor-pointer rounded-2xl border border-border-subtle shadow-sm">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 ${milestone.bg} rounded-xl flex items-center justify-center ${milestone.color}`}>
                     <span className="material-symbols-outlined">{milestone.icon}</span>

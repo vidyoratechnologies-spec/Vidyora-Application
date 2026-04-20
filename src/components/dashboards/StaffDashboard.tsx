@@ -33,7 +33,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary group-focus-within:text-brand-accent transition-colors" size={16} />
             <input className="bg-bg-secondary border border-border-subtle rounded-xl py-3 pl-10 pr-4 text-xs w-full md:w-64 focus:ring-1 focus:ring-brand-accent outline-none transition-all" placeholder="Search records, files..." />
           </div>
-          <button className="bg-brand-accent text-white p-3 rounded-xl shadow-lg transition-all active:scale-95">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'New Entry', content: 'Create a new staff ledger entry, register a visitor, or log incoming physical mail/packages.' }}))} className="bg-brand-accent text-white p-3 rounded-xl shadow-lg transition-all active:scale-95">
             <Plus size={20} />
           </button>
         </div>
@@ -47,7 +47,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
           { label: 'Certificates', icon: <FileText size={20} />, count: '28 Ready', color: 'text-emerald-400', bg: 'bg-emerald-500/5' },
           { label: 'Lost & Found', icon: <ClipboardList size={20} />, count: '2 New', color: 'text-orange-400', bg: 'bg-orange-500/5' },
         ].map((item, idx) => (
-          <div key={idx} className={`${item.bg} p-6 rounded-3xl border border-border-subtle hover:border-text-secondary/20 transition-all cursor-pointer group`}>
+          <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: item.label, content: `Opening tools for: ${item.label}. Status: ${item.count}` }}))} className={`${item.bg} p-6 rounded-3xl border border-border-subtle hover:border-text-secondary/20 transition-all cursor-pointer group`}>
             <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mb-6 ${item.color} group-hover:scale-110 transition-transform`}>
               {item.icon}
             </div>
@@ -64,7 +64,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
             <Timer className="text-brand-accent" size={20} />
             Live Visitor Log
             </h3>
-            <span className="text-xs text-brand-accent font-bold uppercase tracking-widest hover:underline cursor-pointer">View All Activity</span>
+            <span onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Visitor Log Archive', content: 'Detailed historical ledger of all campus visitors, including check-in/out times and scanned IDs.' }}))} className="text-xs text-brand-accent font-bold uppercase tracking-widest hover:underline cursor-pointer">View All Activity</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {visitors.map((visitor, idx) => (
@@ -80,7 +80,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
                 <p className="text-xs text-text-secondary mb-4">{visitor.purpose}</p>
               </div>
               <div className="pt-4 border-t border-border-subtle flex justify-between items-center">
-                <button className="text-[10px] font-bold uppercase tracking-widest text-brand-accent hover:text-text-primary transition-colors">Details</button>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Visitor Details', content: `Identity verification and contact logs for ${visitor.name}.` }}))} className="text-[10px] font-bold uppercase tracking-widest text-brand-accent hover:text-text-primary transition-colors">Details</button>
                 <div className="flex -space-x-2">
                     <div className="w-6 h-6 rounded-full bg-white/5 border border-bg-secondary"></div>
                     <div className="w-6 h-6 rounded-full bg-white/5 border border-bg-secondary"></div>
