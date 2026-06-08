@@ -37,7 +37,7 @@ export default function TutorScreen({ navigate, userRole }: TutorScreenProps) {
   };
 
   return (
-    <div className="bg-bg-primary text-text-primary min-h-screen selection:bg-brand/30 pb-40 transition-colors">
+    <div className="bg-bg-primary text-text-primary min-h-screen selection:bg-brand/30 pb-40 transition-colors overflow-x-hidden">
       {/* TopAppBar */}
       <header className="fixed top-0 inset-x-0 z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
         <div className="flex items-center gap-4">

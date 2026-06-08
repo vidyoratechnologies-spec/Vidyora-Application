@@ -29,7 +29,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Live Feed
           </button>
-          <div className="relative group">
+          <div className="relative group flex-1 md:flex-none">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary group-focus-within:text-brand-accent transition-colors" size={16} />
             <input className="bg-bg-secondary border border-border-subtle rounded-xl py-3 pl-10 pr-4 text-xs w-full md:w-64 focus:ring-1 focus:ring-brand-accent outline-none transition-all" placeholder="Search records, files..." />
           </div>

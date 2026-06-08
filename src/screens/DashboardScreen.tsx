@@ -38,7 +38,7 @@ export default function DashboardScreen({ navigate, userRole }: DashboardScreenP
   };
 
   return (
-    <div className="bg-bg-primary text-text-primary min-h-screen font-body selection:bg-brand/30 pb-32">
+    <div className="bg-bg-primary text-text-primary min-h-screen font-body selection:bg-brand/30 pb-32 overflow-x-hidden">
       {/* TopAppBar */}
       <header className="fixed top-0 inset-x-0 z-50 bg-bg-primary/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-border-subtle">
         <div className="flex items-center gap-3">

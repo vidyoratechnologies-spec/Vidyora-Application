@@ -22,13 +22,13 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Quick Ops Header */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center text-brand shrink-0">
             <span className="material-symbols-outlined text-3xl">admin_panel_settings</span>
           </div>
-          <div className="min-w-0">
-            <h2 className="text-2xl font-black font-headline truncate">Institution Control</h2>
-            <p className="text-xs text-text-secondary font-bold uppercase tracking-widest mt-0.5 truncate">Campus: Vidyora Main</p>
+          <div>
+            <h2 className="text-2xl font-black font-headline">Institution Control</h2>
+            <p className="text-xs text-text-secondary font-bold uppercase tracking-widest mt-0.5">Campus: Vidyora Main</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -75,7 +75,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
           >
             <Download size={16} /> Export
           </button>
-          <div className="relative">
+          <div className="relative flex-1 md:flex-none">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={16} />
             <input className="bg-bg-secondary border border-border-subtle rounded-xl py-2 pl-10 pr-4 text-sm w-full md:w-64 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="Search students, faculty..." />
           </div>

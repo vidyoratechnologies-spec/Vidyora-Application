@@ -30,7 +30,18 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY! });
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+      if (!apiKey) {
+        setQuestions([
+          { id: 1, question: "What is the primary function of a CPU?", options: ["Storage", "Processing", "Cooling", "Displaying"], correctAnswer: "Processing", explanation: "The CPU is the central processing unit responsible for executing instructions." },
+          { id: 2, question: "Which algorithm is used for finding the shortest path?", options: ["Bubble Sort", "Dijkstra's Algorithm", "Binary Search", "Quick Sort"], correctAnswer: "Dijkstra's Algorithm", explanation: "Dijkstra's is a common pathfinding algorithm." },
+          { id: 3, question: "In networking, what does IP stand for?", options: ["Internal Protocol", "Internet Provider", "Internet Protocol", "Internal Process"], correctAnswer: "Internet Protocol", explanation: "IP stands for Internet Protocol." },
+          { id: 4, question: "What does HTML structure?", options: ["Styles", "Databases", "Web Pages", "Servers"], correctAnswer: "Web Pages", explanation: "HTML is the standard markup language for documents designed to be displayed in a web browser." },
+          { id: 5, question: "Which of the following is a NoSQL database?", options: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"], correctAnswer: "MongoDB", explanation: "MongoDB is a document-oriented NoSQL database." },
+        ]);
+        return;
+      }
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: `Generate 5 multiple-choice questions for ${grade} grade students on various topics like Physics, Chemistry, or Math. 

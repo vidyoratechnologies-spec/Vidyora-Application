@@ -1,7 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY! });
-
 export type AIAction = 
   | 'benchmarking' | 'forecasting' | 'insights' | 'anomaly' | 'recommendations'
   | 'timetable' | 'allocation' | 'attendance_pred' | 'dropout_pred' | 'dashboard_insights'
@@ -19,6 +17,13 @@ interface AIRequest {
 export const aiService = {
   async generate(req: AIRequest): Promise<string> {
     const { action, context } = req;
+    
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+    if (!apiKey) {
+      return "Vidyora AI is currently offline (API Key not configured).";
+    }
+    
+    const ai = new GoogleGenAI({ apiKey });
     
     const prompts: Record<AIAction, string> = {
       benchmarking: `Compare performance metrics and rank institutions based on: ${context}`,
