@@ -18,13 +18,6 @@ export const aiService = {
   async generate(req: AIRequest): Promise<string> {
     const { action, context } = req;
     
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
-    if (!apiKey) {
-      return "Vidyora AI is currently offline (API Key not configured).";
-    }
-    
-    const ai = new GoogleGenAI({ apiKey });
-    
     const prompts: Record<AIAction, string> = {
       benchmarking: `Compare performance metrics and rank institutions based on: ${context}`,
       forecasting: `Predict financial revenue and growth trends for the next quarter based on: ${context}`,
@@ -54,14 +47,21 @@ export const aiService = {
     };
 
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompts[action] + "\n\nOutput requirements: Use clear, beautifully written English. Avoid markdown symbols like ***. Use bullet points and clear headers.",
-        config: {
-          systemInstruction: "You are Vidyora AI, a world-class institutional intelligence system. Your outputs must be professional, elegant, and highly accurate. Do not use decorative symbols or excessive markdown. Focus on clarity and readability.",
-        }
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: prompts[action] + "\n\nOutput requirements: Use clear, beautifully written English. Avoid markdown symbols like ***. Use bullet points and clear headers.",
+          systemInstruction: "You are Vidyora AI, a world-class institutional intelligence system. Your outputs must be professional, elegant, and highly accurate. Do not use decorative symbols or excessive markdown. Focus on clarity and readability."
+        })
       });
-      return response.text || "AI failed to generate a response.";
+      const data = await response.json();
+      if (!response.ok) {
+        return data.error || "An error occurred while communicating with Vidyora AI.";
+      }
+      return data.text || "AI failed to generate a response.";
     } catch (error) {
       console.error("AI Generation Error:", error);
       return "An error occurred while communicating with Vidyora AI.";

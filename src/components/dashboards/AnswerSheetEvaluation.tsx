@@ -46,32 +46,13 @@ export default function AnswerSheetEvaluation() {
     setIsEvaluating(true);
     
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
-      if (!apiKey) {
-        // Fallback demo evaluation
-        setTimeout(() => {
-          const result = {
-            marks: 85,
-            totalMarks: 100,
-            feedback: "The student has demonstrated a solid understanding of the core concepts. The derivation was accurate, but some minor calculation errors were found in step 4. Overall, a very good attempt.",
-            confidence: 94,
-            breakdown: ["Accurate formula application (40/40)", "Conceptual clarity (30/30)", "Calculation errors (-15)"]
-          };
-          setEvaluationResult(result);
-          setManualMarks(result.marks.toString());
-          setIsEvaluating(false);
-        }, 3000);
-        return;
-      }
-      
-      const ai = new GoogleGenAI({ apiKey });
-      
-      // Simulate file to Base64 (Simplification for text generation, assuming file contains physics answers)
-      // Real implementation would use base64 conversion and pass it to ai.models.generateContent
-      
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: `Evaluate this hypothetical answer sheet for subject: ${subject}. The student rolled is ${studentRoll}. Analyze the image (simulated). Provide: 
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: `Evaluate this hypothetical answer sheet for subject: ${subject}. The student rolled is ${studentRoll}. Analyze the image (simulated). Provide: 
 1. Suggested marks out of 100
 2. Detailed constructive feedback
 3. Confidence score of your evaluation (percentage)
@@ -86,15 +67,20 @@ Format your response as strict JSON with this structure:
   "breakdown": ["", ""]
 }
 Do not include any Markdown blocks, just the JSON string.`
+        })
       });
-
-      const responseText = response.text || "{}";
+      const data = await response.json();
+      
+      if (!response.ok) {
+         throw new Error(data.error || "Failed to generate");
+      }
+      
+      const responseText = data.text || "{}";
       const cleanedJSON = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
       
       const result = JSON.parse(cleanedJSON);
       setEvaluationResult(result);
       setManualMarks(result.marks.toString());
-      
     } catch (err) {
       console.error(err);
       alert("Failed to evaluate answer sheet. Ensure API key is configured and try again.");

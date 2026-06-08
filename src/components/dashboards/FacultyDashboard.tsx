@@ -18,25 +18,24 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
     if (!topic) return;
     setIsGenerating(true);
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
-      if (!apiKey) {
-        setTimeout(() => {
-          setGeneratedQuestions("1. What are the core fundamentals of this topic?\n2. Describe the key applications and use cases in modern industry.\n3. How does this theoretical model apply to practical scenarios?\n4. What are the common misconceptions regarding this topic?\n5. Analyze the advanced implications of this concept.");
-          setIsGenerating(false);
-          setShowQuestions(true);
-        }, 1500);
-        return;
-      }
-      
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: `Generate 5 high-quality academic questions for the topic: "${topic}". Format each question as a new line starting with a number.`
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: `Generate 5 high-quality academic questions for the topic: "${topic}". Format each question as a new line starting with a number.`
+        })
       });
-      const text = response.text || "";
-      setQuestions(text.split('\n').filter(q => q.trim().length > 0));
-    } catch (error) {
+      const data = await response.json();
+      if (response.ok && data.text) {
+        setQuestions(data.text.split('\n').filter((q: string) => q.trim().length > 0));
+      } else {
+        throw new Error(data.error || "Failed");
+      }
+    } catch (error: any) {
       console.error(error);
+      alert("AI Service Offline: " + error.message);
     } finally {
       setIsGenerating(false);
     }
