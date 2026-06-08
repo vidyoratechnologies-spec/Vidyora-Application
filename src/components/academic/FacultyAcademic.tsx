@@ -1,7 +1,12 @@
 import { BookOpen, Users, Clock, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Screen } from '../../types.ts';
 
-export default function FacultyAcademic() {
+interface FacultyAcademicProps {
+  navigate: (screen: Screen) => void;
+}
+
+export default function FacultyAcademic({ navigate }: FacultyAcademicProps) {
   const classes = [
     { name: 'Advanced Thermodynamics', code: 'ME-402', attendance: '92%', progress: 65, nextTopic: 'Entropy & Laws' },
     { name: 'Mechanical Vibrations', code: 'ME-501', attendance: '88%', progress: 40, nextTopic: 'Damping Systems' },
@@ -38,14 +43,25 @@ export default function FacultyAcademic() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
+            <div className="flex flex-col md:flex-row md:items-center justify-between pt-4 border-t border-border-subtle gap-4">
               <div className="flex items-center gap-2 text-xs text-text-secondary">
-                <Clock size={14} className="text-text-secondary" />
-                Next: <span className="font-bold text-text-primary">{cls.nextTopic}</span>
+                <Clock size={14} className="text-text-secondary shrink-0" />
+                <span className="truncate">Next: <span className="font-bold text-text-primary">{cls.nextTopic}</span></span>
               </div>
-              <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'LMS Portal', content: 'Redirecting to your Canvas / Moodle learning management system for detailed course administration.' }}))} className="text-orange-400 text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:translate-x-1 transition-transform">
-                Open LMS <ArrowRight size={14} />
-              </button>
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <button onClick={() => navigate('faculty_mark_attendance')} className="text-emerald-500 text-xs font-bold uppercase tracking-widest hover:underline whitespace-nowrap">Attendance</button>
+                  <label className="text-brand text-xs font-bold uppercase tracking-widest cursor-pointer hover:underline whitespace-nowrap">
+                      Notes
+                      <input type="file" className="hidden" multiple onChange={(e) => { if(e.target.files?.length) window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Upload Successful', content: `Notes have been uploaded for ${cls.code}.` }})) }} />
+                  </label>
+                  <label className="text-brand text-xs font-bold uppercase tracking-widest cursor-pointer hover:underline whitespace-nowrap">
+                      Marks
+                      <input type="file" className="hidden" accept=".csv,.xlsx,.xls" onChange={(e) => { if(e.target.files?.length) window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Upload Successful', content: `Marks grading sheet uploaded for ${cls.code}.` }})) }} />
+                  </label>
+                  <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'LMS Portal', content: 'Redirecting to your Canvas / Moodle learning management system for detailed course administration.' }}))} className="text-orange-400 text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:translate-x-1 transition-transform pl-3 border-l border-border-subtle whitespace-nowrap">
+                    LMS <ArrowRight size={14} />
+                  </button>
+              </div>
             </div>
           </div>
         ))}

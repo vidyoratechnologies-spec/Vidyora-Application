@@ -21,7 +21,7 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#10B981] border-2 border-[#0B0F1A] rounded-full"></div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-bg-primary rounded-full"></div>
             </div>
             <div>
               <h2 className="text-3xl font-extrabold font-headline tracking-tight">Hi, Harshith 👋</h2>
@@ -62,7 +62,7 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-secondary font-headline">Attendance</p>
                 <div className="flex items-baseline gap-2">
                   <span className="text-5xl font-black font-headline tracking-tight text-text-primary">92%</span>
-                  <span className="flex items-center gap-0.5 text-[#10B981] text-[9px] font-bold px-1 py-0.5 bg-[#10B981]/10 rounded-full ring-1 ring-[#10B981]/20 shadow-[0_0_6px_rgba(16,185,129,0.15)] ml-1 translate-y-[-4px]">
+                  <span className="flex items-center gap-0.5 text-green-500 text-[9px] font-bold px-1 py-0.5 bg-green-500/10 rounded-full ring-1 ring-[#10B981]/20 shadow-[0_0_6px_rgba(16,185,129,0.15)] ml-1 translate-y-[-4px]">
                     <TrendingUp size={10} /> +2%
                   </span>
                 </div>
@@ -82,7 +82,7 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
               <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-text-secondary font-headline mb-1">Marks</p>
               <div className="flex flex-col gap-2 relative z-10">
                 <span className="text-4xl font-black font-headline tracking-tight text-text-primary">88.5%</span>
-                <span className="text-[11px] font-bold text-[#10B981] px-2 py-0.5 bg-[#10B981]/10 rounded-full w-fit">Excellent</span>
+                <span className="text-[11px] font-bold text-green-500 px-2 py-0.5 bg-green-500/10 rounded-full w-fit">Excellent</span>
               </div>
             </div>
             {/* Rank */}
@@ -118,7 +118,7 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
               </div>
               <div className="h-px bg-border-subtle"></div>
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-[#10B981] text-[10px] font-bold uppercase tracking-[0.2em] font-headline">
+                <div className="flex items-center gap-2 text-green-500 text-[10px] font-bold uppercase tracking-[0.2em] font-headline">
                    <TrendingUp size={14} />
                   Milestone Reached
                 </div>
@@ -151,11 +151,11 @@ export default function StudentDashboard({ navigate }: StudentDashboardProps) {
                   </div>
                   <div>
                     <h4 className="font-bold font-headline text-text-primary">{milestone.title}</h4>
-                    <p className={`text-[10px] ${milestone.active ? 'text-[#10B981]' : 'text-text-secondary'} uppercase tracking-widest font-bold mt-1`}>{milestone.time}</p>
+                    <p className={`text-[10px] ${milestone.active ? 'text-green-500' : 'text-text-secondary'} uppercase tracking-widest font-bold mt-1`}>{milestone.time}</p>
                   </div>
                 </div>
                 <div className="text-right flex flex-col items-end gap-1">
-                  <span className={`px-3 py-1 ${milestone.badge.includes('Active') ? 'bg-brand-accent/20 text-brand-accent' : milestone.badge.includes('120') ? 'bg-[#10B981]/20 text-[#10B981]' : 'bg-orange-500/20 text-orange-500'} rounded-full font-black text-sm font-headline whitespace-nowrap`}>
+                  <span className={`px-3 py-1 ${milestone.badge.includes('Active') ? 'bg-brand-accent/20 text-brand-accent' : milestone.badge.includes('120') ? 'bg-green-500/20 text-green-500' : 'bg-orange-500/20 text-orange-500'} rounded-full font-black text-sm font-headline whitespace-nowrap`}>
                     {milestone.badge}
                   </span>
                   <span className="text-[10px] text-text-secondary font-bold uppercase tracking-wider opacity-60">{milestone.subBadge}</span>

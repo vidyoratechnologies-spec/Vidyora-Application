@@ -35,7 +35,7 @@ export default function ProfileScreen({ navigate, userRole, onLogout, toggleThem
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen selection:bg-brand/30 pb-40">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
+      <header className="fixed top-0 inset-x-0 z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-2xl bg-bg-secondary flex items-center justify-center text-text-secondary border border-border-subtle">
             <span className="material-symbols-outlined text-xl">account_circle</span>

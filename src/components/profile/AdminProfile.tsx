@@ -66,7 +66,7 @@ export default function AdminProfile({ onLogout, toggleTheme, isDarkMode }: Admi
       </div>
 
       <div className="flex gap-4">
-        <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Security Settings', content: 'Manage 2FA, API keys, and device access.' }}))} className="flex-1 py-4 bg-bg-secondary border border-border-subtle text-xs font-bold uppercase tracking-widest rounded-2xl hover:bg-white/5 text-text-primary transition-colors"> Security Settings </button>
+        <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Security Settings', content: 'Manage 2FA, API keys, and device access.' }}))} className="flex-1 py-4 bg-bg-secondary border border-border-subtle text-xs font-bold uppercase tracking-widest rounded-2xl hover:bg-bg-card text-text-primary transition-colors"> Security Settings </button>
         <button 
           onClick={onLogout}
           className="flex-1 py-4 border border-red-500/20 text-red-500 font-bold rounded-2xl hover:bg-red-500/10 transition-colors flex items-center justify-center gap-2"

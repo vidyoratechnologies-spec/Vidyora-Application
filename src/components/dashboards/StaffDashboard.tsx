@@ -48,7 +48,7 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
           { label: 'Lost & Found', icon: <ClipboardList size={20} />, count: '2 New', color: 'text-orange-400', bg: 'bg-orange-500/5' },
         ].map((item, idx) => (
           <div key={idx} onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: item.label, content: `Opening tools for: ${item.label}. Status: ${item.count}` }}))} className={`${item.bg} p-6 rounded-3xl border border-border-subtle hover:border-text-secondary/20 transition-all cursor-pointer group`}>
-            <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center mb-6 ${item.color} group-hover:scale-110 transition-transform`}>
+            <div className={`w-10 h-10 rounded-xl bg-bg-secondary flex items-center justify-center mb-6 ${item.color} group-hover:scale-110 transition-transform`}>
               {item.icon}
             </div>
             <p className="text-xs font-bold font-headline mb-1">{item.label}</p>
@@ -82,8 +82,8 @@ export default function StaffDashboard({ navigate }: StaffDashboardProps) {
               <div className="pt-4 border-t border-border-subtle flex justify-between items-center">
                 <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Visitor Details', content: `Identity verification and contact logs for ${visitor.name}.` }}))} className="text-[10px] font-bold uppercase tracking-widest text-brand-accent hover:text-text-primary transition-colors">Details</button>
                 <div className="flex -space-x-2">
-                    <div className="w-6 h-6 rounded-full bg-white/5 border border-bg-secondary"></div>
-                    <div className="w-6 h-6 rounded-full bg-white/5 border border-bg-secondary"></div>
+                    <div className="w-6 h-6 rounded-full bg-bg-secondary border border-bg-secondary"></div>
+                    <div className="w-6 h-6 rounded-full bg-bg-secondary border border-bg-secondary"></div>
                 </div>
               </div>
             </div>

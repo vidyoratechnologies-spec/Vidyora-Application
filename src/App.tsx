@@ -18,11 +18,12 @@ import AttendanceDetail from './components/academic/detailed/AttendanceDetail.ts
 import ExamDetail from './components/academic/detailed/ExamDetail.tsx';
 import ScheduleDetail from './components/academic/detailed/ScheduleDetail.tsx';
 import SubjectSelector from './components/academic/detailed/SubjectSelector.tsx';
+import FacultyMarkAttendance from './components/academic/detailed/FacultyMarkAttendance.tsx';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
   const [userRole, setUserRole] = useState<UserRole | undefined>(undefined);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isVideoCallOpen, setIsVideoCallOpen] = useState(false);
   const [videoCallLabel, setVideoCallLabel] = useState('Course Session');
   const [isQuizOpen, setIsQuizOpen] = useState(false);
@@ -30,6 +31,11 @@ export default function App() {
   const [genericModal, setGenericModal] = useState({ isOpen: false, title: '', content: '' });
 
   useEffect(() => {
+    // Add light class initially if isDarkMode is false
+    if (!isDarkMode) {
+      document.documentElement.classList.add('light');
+    }
+
     const handlePdfExport = (e: any) => {
       exportToPDF(e.detail.title, e.detail.content);
     };
@@ -103,6 +109,8 @@ export default function App() {
         return <SubjectSelector onBack={() => navigate('academic')} mode="notes" />;
       case 'test_selector':
         return <SubjectSelector onBack={() => navigate('academic')} mode="test" />;
+      case 'faculty_mark_attendance':
+        return <FacultyMarkAttendance onBack={() => navigate('dashboard')} />;
       default:
         return <LoginScreen onLogin={handleLogin} isDarkMode={isDarkMode} />;
     }

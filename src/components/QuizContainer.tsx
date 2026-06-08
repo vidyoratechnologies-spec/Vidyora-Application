@@ -30,9 +30,9 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
   const fetchQuestions = async () => {
     setLoading(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY! });
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-2.5-flash",
         contents: `Generate 5 multiple-choice questions for ${grade} grade students on various topics like Physics, Chemistry, or Math. 
         Each question should have exactly 4 options and one clear correct answer.`,
         config: {
@@ -124,19 +124,19 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[110] bg-[#0f131e]/95 flex items-center justify-center p-4 backdrop-blur-sm"
+        className="fixed inset-0 z-[110] bg-bg-primary/95 flex items-center justify-center p-4 backdrop-blur-sm"
       >
         <motion.div
           initial={{ scale: 0.9, y: 20 }}
           animate={{ scale: 1, y: 0 }}
-          className="w-full max-w-2xl bg-[#171b27] rounded-3xl border border-white/10 shadow-3xl overflow-hidden relative"
+          className="w-full max-w-2xl bg-bg-secondary rounded-3xl border border-border-subtle shadow-3xl overflow-hidden relative"
         >
           {/* Header */}
-          <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+          <div className="p-6 border-b border-border-subtle flex items-center justify-between bg-white/[0.02]">
             <div className="flex items-center gap-3">
               <button 
                 onClick={onClose}
-                className="flex items-center gap-2 p-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/90 transition-all active:scale-95 border border-white/10 group mr-2"
+                className="flex items-center gap-2 p-2 px-3 rounded-xl bg-bg-secondary hover:bg-black/10 text-white/90 transition-all active:scale-95 border border-border-subtle group mr-2"
               >
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                 <span className="text-[10px] font-bold uppercase tracking-wider">Back</span>
@@ -148,7 +148,7 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
             </div>
             <button 
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-white/5 text-[#8b919e] transition-colors"
+              className="p-2 rounded-lg hover:bg-bg-card text-text-secondary transition-colors"
             >
               <X size={20} />
             </button>
@@ -158,7 +158,7 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
             {loading ? (
               <div className="flex flex-col items-center justify-center py-20 gap-4">
                 <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-[#8b919e] font-medium animate-pulse">Generating your personalized test...</p>
+                <p className="text-text-secondary font-medium animate-pulse">Generating your personalized test...</p>
               </div>
             ) : showResult ? (
               <motion.div 
@@ -170,12 +170,12 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
                   <Trophy size={48} />
                 </div>
                 <h3 className="text-3xl font-black font-headline mb-2">Quiz Completed!</h3>
-                <p className="text-[#94a3b8] mb-8">You scored <span className="text-white font-bold">{score} out of {questions.length}</span></p>
+                <p className="text-text-secondary mb-8">You scored <span className="text-text-primary font-bold">{score} out of {questions.length}</span></p>
                 
                 <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
                     <button 
                         onClick={resetQuiz}
-                        className="flex-1 py-4 bg-white/5 hover:bg-white/10 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2"
+                        className="flex-1 py-4 bg-bg-secondary hover:bg-black/10 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2"
                     >
                         <RefreshCcw size={16} /> Retake
                     </button>
@@ -190,11 +190,11 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
             ) : questions.length > 0 ? (
               <div className="space-y-8">
                 {/* Progress */}
-                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-[#8b919e]">
+                <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-text-secondary">
                     <span>Question {currentStep + 1} of {questions.length}</span>
                     <span className="text-blue-400">Time: {grade} Prep</span>
                 </div>
-                <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-bg-secondary rounded-full overflow-hidden">
                     <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
@@ -203,7 +203,7 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
                 </div>
 
                 {/* Question */}
-                <h3 className="text-xl font-bold font-headline leading-tight text-[#dfe2f2]">
+                <h3 className="text-xl font-bold font-headline leading-tight text-text-primary">
                   {questions[currentStep].question}
                 </h3>
 
@@ -221,12 +221,12 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
                         onClick={() => handleOptionSelect(option)}
                         className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between group
                           ${isAnswered ? 'cursor-default' : 'hover:border-blue-500/50 hover:bg-blue-500/5 cursor-pointer'}
-                          ${isSelected ? 'border-blue-500 bg-blue-500/10' : 'border-white/5 bg-[#0f131e]'}
+                          ${isSelected ? 'border-blue-500 bg-blue-500/10' : 'border-border-subtle bg-bg-primary'}
                           ${isCorrect ? 'border-green-500 bg-green-500/10' : ''}
                           ${isWrong ? 'border-red-500 bg-red-500/10' : ''}
                         `}
                       >
-                        <span className={`font-medium ${isCorrect ? 'text-green-400' : isWrong ? 'text-red-400' : 'text-[#c1c6d4]'}`}>
+                        <span className={`font-medium ${isCorrect ? 'text-green-500' : isWrong ? 'text-red-500' : 'text-text-primary'}`}>
                           {option}
                         </span>
                         {isCorrect && <Check size={18} className="text-green-500" />}
@@ -243,7 +243,7 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
                             animate={{ opacity: 1, y: 0 }}
                             className="bg-blue-500/10 p-4 rounded-xl border border-blue-500/20"
                         >
-                            <p className="text-xs text-[#94a3b8] italic">
+                            <p className="text-xs text-text-secondary italic">
                                 <span className="font-bold text-blue-400 not-italic mr-1">Explanation:</span> 
                                 {questions[currentStep].explanation}
                             </p>
@@ -265,7 +265,7 @@ export default function QuizContainer({ isOpen, onClose, grade = "12th" }: QuizC
             ) : (
                 <div className="text-center py-20 flex flex-col items-center gap-4">
                     <AlertCircle size={40} className="text-orange-400" />
-                    <p className="text-[#8b919e]">Failed to load questions. Please try again.</p>
+                    <p className="text-text-secondary">Failed to load questions. Please try again.</p>
                     <button onClick={fetchQuestions} className="text-blue-400 font-bold underline">Retry</button>
                 </div>
             )}

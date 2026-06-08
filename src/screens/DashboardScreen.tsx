@@ -40,7 +40,7 @@ export default function DashboardScreen({ navigate, userRole }: DashboardScreenP
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen font-body selection:bg-brand/30 pb-32">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 bg-bg-primary/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-border-subtle">
+      <header className="fixed top-0 inset-x-0 z-50 bg-bg-primary/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-border-subtle">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-brand-accent flex items-center justify-center">
             <span className="font-headline font-black text-white text-xs">V</span>

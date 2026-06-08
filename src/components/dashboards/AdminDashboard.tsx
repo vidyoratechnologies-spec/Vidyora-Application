@@ -1,7 +1,8 @@
-import { Users, GraduationCap, Calendar, AlertCircle, FileText, Search, Plus, Filter, MessageSquare, TrendingDown, ArrowRight, Download, CreditCard, Edit3 } from 'lucide-react';
+import { Users, GraduationCap, Calendar, AlertCircle, FileText, Search, Plus, Filter, MessageSquare, TrendingDown, ArrowRight, Download, CreditCard, Edit3, Printer } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { Screen } from '../../types.ts';
+import DocumentGenerationModal from './DocumentGenerationModal.tsx';
 
 interface AdminDashboardProps {
   navigate: (screen: Screen) => void;
@@ -9,6 +10,7 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ navigate }: AdminDashboardProps) {
   const [isEditFeesOpen, setIsEditFeesOpen] = useState(false);
+  const [isDocGenOpen, setIsDocGenOpen] = useState(false);
 
   const alerts = [
     { title: 'Potential Dropout Risk', detail: 'James Wilson (CSE-B) attendance below 65%', type: 'critical' },
@@ -20,16 +22,23 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Quick Ops Header */}
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center text-brand">
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center text-brand shrink-0">
             <span className="material-symbols-outlined text-3xl">admin_panel_settings</span>
           </div>
-          <div>
-            <h2 className="text-2xl font-black font-headline">Institution Control</h2>
-            <p className="text-xs text-text-secondary font-bold uppercase tracking-widest mt-0.5">Campus: Vidyora Main</p>
+          <div className="min-w-0">
+            <h2 className="text-2xl font-black font-headline truncate">Institution Control</h2>
+            <p className="text-xs text-text-secondary font-bold uppercase tracking-widest mt-0.5 truncate">Campus: Vidyora Main</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <button 
+            onClick={() => setIsDocGenOpen(true)}
+            className="flex items-center gap-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 px-4 py-2.5 rounded-xl border border-blue-500/20 text-xs font-bold uppercase tracking-widest transition-all"
+          >
+            <Printer size={16} />
+            Generate Docs
+          </button>
           <button 
             onClick={() => setIsEditFeesOpen(true)}
             className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 px-4 py-2.5 rounded-xl border border-emerald-500/20 text-xs font-bold uppercase tracking-widest transition-all"
@@ -62,13 +71,13 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
                 ] 
               } 
             }))}
-            className="flex items-center gap-2 bg-[#171b27] hover:bg-[#1b1f2b] text-[#a8c8ff] px-4 py-2.5 rounded-xl border border-white/5 text-xs font-bold uppercase tracking-widest transition-all"
+            className="flex items-center gap-2 bg-bg-secondary hover:bg-bg-card text-brand-accent px-4 py-2.5 rounded-xl border border-border-subtle text-xs font-bold uppercase tracking-widest transition-all"
           >
             <Download size={16} /> Export
           </button>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b919e]" size={16} />
-            <input className="bg-[#171b27] border border-white/5 rounded-xl py-2 pl-10 pr-4 text-sm w-full md:w-64 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="Search students, faculty..." />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={16} />
+            <input className="bg-bg-secondary border border-border-subtle rounded-xl py-2 pl-10 pr-4 text-sm w-full md:w-64 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="Search students, faculty..." />
           </div>
           <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Add Record', content: 'Select record type to add: New Student, New Faculty, or Course Syllabus.' }}))} className="bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-xl shadow-lg transition-all active:scale-95">
             <Plus size={20} />
@@ -209,6 +218,7 @@ export default function AdminDashboard({ navigate }: AdminDashboardProps) {
           </motion.div>
         )}
       </AnimatePresence>
+      <DocumentGenerationModal isOpen={isDocGenOpen} onClose={() => setIsDocGenOpen(false)} />
     </div>
   );
 }

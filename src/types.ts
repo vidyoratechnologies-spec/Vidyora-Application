@@ -23,7 +23,8 @@ export type Screen =
   | 'marks_detail'
   | 'rank_detail'
   | 'notes_selector'
-  | 'test_selector';
+  | 'test_selector'
+  | 'faculty_mark_attendance';
 
 export interface NavigationProps {
   currentScreen: Screen;

@@ -163,11 +163,14 @@ export default function AIEngineInterface({ action, title, description, contextP
                   <span className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">Validated AI Output</span>
                </div>
                <div className="flex gap-2">
-                 <button className="p-2 bg-bg-primary hover:bg-white/5 rounded-xl text-text-secondary transition-colors group relative">
+                 <button 
+                   onClick={() => window.dispatchEvent(new CustomEvent('export-pdf', { detail: { title: title + ' - AI Output', content: result } }))}
+                   className="p-2 bg-bg-primary hover:bg-bg-card rounded-xl text-text-secondary transition-colors group relative"
+                 >
                     <Download size={16} />
                     <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-bg-primary text-[8px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">PDF</span>
                  </button>
-                  <button className="p-2 bg-bg-primary hover:bg-white/5 rounded-xl text-text-secondary transition-colors">
+                  <button className="p-2 bg-bg-primary hover:bg-bg-card rounded-xl text-text-secondary transition-colors">
                     <FileText size={16} />
                  </button>
                </div>
@@ -183,7 +186,7 @@ export default function AIEngineInterface({ action, title, description, contextP
             <div className="pt-4 border-t border-border-subtle flex gap-4">
                 <button 
                   onClick={() => setResult(null)}
-                  className="flex-1 py-3 bg-bg-primary border border-border-subtle hover:bg-white/5 rounded-xl text-xs font-bold uppercase tracking-widest text-text-secondary transition-colors"
+                  className="flex-1 py-3 bg-bg-primary border border-border-subtle hover:bg-bg-card rounded-xl text-xs font-bold uppercase tracking-widest text-text-secondary transition-colors"
                 >
                     Discard
                 </button>

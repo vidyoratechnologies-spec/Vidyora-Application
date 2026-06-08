@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Screen } from '../../types.ts';
 import { GoogleGenAI } from "@google/genai";
 import { useState } from 'react';
+import AnswerSheetEvaluation from './AnswerSheetEvaluation.tsx';
 
 interface FacultyDashboardProps {
   navigate: (screen: Screen) => void;
@@ -17,9 +18,9 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
     if (!topic) return;
     setIsGenerating(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY! });
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-2.5-flash",
         contents: `Generate 5 high-quality academic questions for the topic: "${topic}". Format each question as a new line starting with a number.`
       });
       const text = response.text || "";
@@ -39,22 +40,23 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Hero Header */}
-      <section className="bg-gradient-to-br from-[#1e1e2e] to-[#0f131e] p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+      <section className="bg-bg-secondary p-8 rounded-3xl border border-border-subtle relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-10">
           <BookOpen size={120} className="text-orange-400 rotate-12" />
         </div>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <h2 className="text-4xl font-black font-headline tracking-tighter">Good morning, Prof. Sharma</h2>
-            <p className="text-[#94a3b8] text-sm font-medium">You have <span className="text-orange-400 font-bold underline underline-offset-4">3 classes</span> scheduled for today.</p>
+            <p className="text-text-secondary text-sm font-medium">You have <span className="text-orange-400 font-bold underline underline-offset-4">3 classes</span> scheduled for today.</p>
           </div>
-          <div className="flex items-center gap-3">
-            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Mark Attendance', content: 'Quickly record proxy attendance or invoke biometric scanners for the current live class.' }}))} className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all active:scale-95 flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <button onClick={() => navigate('faculty_mark_attendance')} className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
                 <PlusCircle size={18} />
                 Mark Attendance
             </button>
-            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Attendance Ledger', content: 'View detailed log of past attendance records for all your classes.' }}))} className="bg-white/5 hover:bg-white/10 text-white px-2 py-3 rounded-xl border border-white/5 transition-colors">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Attendance Ledger', content: 'View detailed log of past attendance records for all your classes.' }}))} className="bg-bg-secondary hover:bg-black/10 text-text-primary px-4 py-3 rounded-xl border border-border-subtle transition-colors flex items-center justify-center gap-2">
                 <ListChecks size={20} />
+                <span className="sm:hidden font-bold">Ledger</span>
             </button>
           </div>
         </div>
@@ -68,32 +70,32 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {currentClasses.map((cls, idx) => (
-            <div key={idx} className="bg-[#171b27] p-6 rounded-2xl border border-white/5 hover:border-orange-500/20 transition-all group flex flex-col justify-between">
+            <div key={idx} className="bg-bg-secondary p-6 rounded-2xl border border-border-subtle hover:border-orange-500/20 transition-all group flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${cls.status === 'In Progress' ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-400'}`}>
                     {cls.status}
                   </div>
-                  <span className="text-xs text-[#8b919e] font-bold">{cls.time}</span>
+                  <span className="text-xs text-text-secondary font-bold">{cls.time}</span>
                 </div>
                 <h4 className="text-xl font-bold font-headline mb-1 group-hover:text-orange-400 transition-colors">{cls.subject}</h4>
-                <p className="text-xs text-[#8b919e] font-bold uppercase tracking-widest mb-6">{cls.code} • {cls.students} Students enrolled</p>
+                <p className="text-xs text-text-secondary font-bold uppercase tracking-widest mb-6">{cls.code} • {cls.students} Students enrolled</p>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-white/5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 border-t border-border-subtle gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#94a3b8]">Avg Attendance</span>
-                  <span className="text-sm font-bold text-[#dfe2f2]">{cls.attendance}</span>
+                  <span className="text-xs text-text-secondary">Avg Attendance</span>
+                  <span className="text-sm font-bold text-text-primary">{cls.attendance}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   {cls.status === 'In Progress' && (
                     <button 
                       onClick={() => window.dispatchEvent(new CustomEvent('start-video-call', { detail: { label: cls.subject } }))}
-                      className="bg-orange-500 hover:bg-orange-400 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-all"
+                      className="bg-orange-500 hover:bg-orange-400 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg transition-all whitespace-nowrap"
                     >
                       Take Class
                     </button>
                   )}
-                  <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Class Details', content: 'View detailed student list, historical attendance, and continuous evaluation records for this batch.' }}))} className="text-[#a8c8ff] text-xs font-bold uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Class Details', content: 'View detailed student list, historical attendance, and continuous evaluation records for this batch.' }}))} className="text-brand-accent text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-opacity opacity-100 sm:opacity-0 group-hover:opacity-100 whitespace-nowrap">
                     View Detail <ArrowRight size={14} />
                   </button>
                 </div>
@@ -104,7 +106,7 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
       </section>
 
       {/* AI Tool: Question Generator */}
-      <section className="bg-[#1b1f2b] p-8 rounded-3xl border border-orange-500/10 relative shadow-2xl overflow-hidden group">
+      <section className="bg-bg-card p-8 rounded-3xl border border-orange-500/10 relative shadow-2xl overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400/[0.03] to-transparent pointer-events-none"></div>
         <div className="absolute -top-12 -right-12 w-32 h-32 bg-orange-400/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
         
@@ -116,18 +118,18 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
         </div>
 
         <div className="space-y-4">
-          <p className="text-sm text-[#94a3b8] mb-4">Instantly generate exam or quiz questions based on specific topics or syllabus units.</p>
-          <div className="flex gap-2">
+          <p className="text-sm text-text-secondary mb-4">Instantly generate exam or quiz questions based on specific topics or syllabus units.</p>
+          <div className="flex flex-col sm:flex-row gap-3">
             <input 
-              className="flex-1 bg-[#0f131e] border border-white/10 rounded-xl py-3 px-4 text-sm focus:ring-1 focus:ring-orange-500 outline-none transition-all" 
-              placeholder="Enter topic (e.g., Quantum Entanglement, French Revolution...)" 
+              className="flex-1 bg-bg-primary border border-border-subtle rounded-xl py-3 px-4 text-sm focus:ring-1 focus:ring-orange-500 outline-none transition-all w-full" 
+              placeholder="Enter topic (e.g., Quantum Entanglement...)" 
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
             />
             <button 
                 onClick={generateQuestions}
                 disabled={isGenerating}
-                className="bg-orange-500 hover:bg-orange-400 disabled:opacity-50 text-white font-bold px-6 py-3 rounded-xl transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap"
+                className="bg-orange-500 hover:bg-orange-400 disabled:opacity-50 text-white font-bold px-6 py-3 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto"
             >
                 {isGenerating ? <Activity className="animate-spin" size={18} /> : <Sparkles size={18} />}
                 Generate
@@ -139,24 +141,24 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="mt-6 space-y-3 pt-6 border-t border-white/5"
+                className="mt-6 space-y-3 pt-6 border-t border-border-subtle"
               >
                 <div className="flex justify-between items-center mb-4">
-                    <span className="text-[10px] font-bold text-[#8b919e] uppercase tracking-widest">AI Generated Content</span>
+                    <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">AI Generated Content</span>
                     <button onClick={() => setQuestions([])} className="text-[10px] text-red-500 font-bold uppercase hover:underline">Clear</button>
                 </div>
                 {questions.map((q, i) => (
-                  <div key={i} className="bg-[#0f131e] p-4 rounded-xl border border-white/5 text-sm text-[#dfe2f2]/90 leading-relaxed hover:bg-[#262a36] transition-colors cursor-pointer group">
+                  <div key={i} className="bg-bg-primary p-4 rounded-xl border border-border-subtle text-sm text-text-primary/90 leading-relaxed hover:bg-bg-card transition-colors cursor-pointer group">
                     {q}
                   </div>
                 ))}
-                <div className="flex gap-3 pt-4">
-                    <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Edit Questions', content: 'Opening question editor interface for manual refinement.' }}))} className="flex-1 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold uppercase tracking-widest text-[#a8c8ff] transition-colors flex items-center justify-center gap-2">
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                    <button onClick={() => window.dispatchEvent(new CustomEvent('show-modal', { detail: { title: 'Edit Questions', content: 'Opening question editor interface for manual refinement.' }}))} className="flex-1 py-3 bg-bg-secondary hover:bg-black/10 rounded-xl text-xs font-bold uppercase tracking-widest text-brand-accent transition-colors flex items-center justify-center gap-2 w-full">
                         <PenTool size={14} /> Edit Questions
                     </button>
                     <button 
                       onClick={() => window.dispatchEvent(new CustomEvent('export-pdf', { detail: { title: `Questions: ${topic}`, content: questions } }))}
-                      className="flex-1 py-3 bg-orange-500/10 hover:bg-orange-500/20 rounded-xl text-xs font-bold uppercase tracking-widest text-orange-400 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 py-3 bg-orange-500/10 hover:bg-orange-500/20 rounded-xl text-xs font-bold uppercase tracking-widest text-orange-400 transition-colors flex items-center justify-center gap-2 w-full"
                     >
                         <FileSpreadsheet size={14} /> Export to PDF
                     </button>
@@ -166,6 +168,9 @@ export default function FacultyDashboard({ navigate }: FacultyDashboardProps) {
           </AnimatePresence>
         </div>
       </section>
+
+      {/* Answer Sheet Evaluation */}
+      <AnswerSheetEvaluation />
     </div>
   );
 }

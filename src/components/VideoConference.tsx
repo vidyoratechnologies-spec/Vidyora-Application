@@ -46,7 +46,7 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
             <div className="flex items-center gap-3">
               <button 
                 onClick={onClose}
-                className="flex items-center gap-2 p-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/90 transition-all active:scale-95 border border-white/10 group mr-4"
+                className="flex items-center gap-2 p-2 px-3 rounded-xl bg-bg-secondary hover:bg-black/10 text-white/90 transition-all active:scale-95 border border-border-subtle group mr-4"
                 title="Back to Dashboard"
               >
                 <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
@@ -60,7 +60,7 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
               <span className="text-white/40 text-sm font-mono">{formatTime(timer)}</span>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1 text-white/60 bg-white/5 px-3 py-1.5 rounded-full text-xs font-medium border border-white/5">
+              <div className="flex items-center gap-1 text-white/60 bg-bg-secondary px-3 py-1.5 rounded-full text-xs font-medium border border-border-subtle">
                 <Users size={14} />
                 {participants}
               </div>
@@ -72,7 +72,7 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
 
           {/* Main Content (Grid) */}
           <div className="flex-1 w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
-            <div className="md:col-span-2 relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 group shadow-2xl">
+            <div className="md:col-span-2 relative bg-zinc-900 rounded-2xl overflow-hidden border border-border-subtle group shadow-2xl">
               {!isVideoOff ? (
                 <img 
                   src={`https://picsum.photos/seed/faculty1/1280/720`} 
@@ -82,27 +82,27 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center flex-col gap-4 text-white/20">
-                    <div className="w-24 h-24 rounded-full bg-white/5 flex items-center justify-center">
+                    <div className="w-24 h-24 rounded-full bg-bg-secondary flex items-center justify-center">
                         <VideoOff size={48} />
                     </div>
                     <span className="text-sm font-bold uppercase tracking-widest">Video is Off</span>
                 </div>
               )}
-              <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg text-white text-xs font-bold border border-white/10">
+              <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg text-white text-xs font-bold border border-border-subtle">
                 Prof. Sharma
               </div>
             </div>
 
             <div className="grid grid-rows-3 gap-4">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 group shadow-lg">
+                <div key={i} className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-border-subtle group shadow-lg">
                   <img 
                     src={`https://picsum.photos/seed/student${i+10}/400/300`} 
                     className="w-full h-full object-cover opacity-80" 
                     alt="Student" 
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm px-2 py-1 rounded text-white text-[10px] font-bold border border-white/10">
+                  <div className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm px-2 py-1 rounded text-white text-[10px] font-bold border border-border-subtle">
                     Student {i+10}
                   </div>
                   {i === 2 && (
@@ -118,7 +118,7 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
           {/* Controls */}
           <div className="w-full max-w-6xl flex items-center justify-between pb-4">
             <div className="flex items-center gap-2 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto">
-               <button className="p-3 rounded-full hover:bg-white/5 text-white/70 transition-colors">
+               <button className="p-3 rounded-full hover:bg-bg-card text-white/70 transition-colors">
                 <Shield size={22} />
               </button>
             </div>
@@ -156,7 +156,7 @@ export default function VideoConference({ isOpen, onClose, classNameLabel = "Phy
             </div>
 
             <div className="flex items-center gap-2 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto">
-               <button className="p-3 rounded-full hover:bg-white/5 text-white/70 transition-colors">
+               <button className="p-3 rounded-full hover:bg-bg-card text-white/70 transition-colors">
                 <MoreVertical size={22} />
               </button>
             </div>

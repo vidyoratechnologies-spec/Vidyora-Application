@@ -18,7 +18,7 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
       case 'student':
         return <StudentAcademic navigate={navigate} />;
       case 'faculty':
-        return <FacultyAcademic />;
+        return <FacultyAcademic navigate={navigate} />;
       case 'admin':
       case 'super_admin':
         return <AdminAcademic />;
@@ -34,7 +34,7 @@ export default function AcademicScreen({ navigate, userRole }: AcademicScreenPro
   return (
     <div className="bg-bg-primary text-text-primary min-h-screen selection:bg-brand/30 pb-40">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
+      <header className="fixed top-0 inset-x-0 z-50 bg-bg-primary/90 backdrop-blur-2xl border-b border-border-subtle flex justify-between items-center px-6 h-18">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-brand-accent flex items-center justify-center text-white shadow-lg shadow-blue-900/40 border border-border-subtle">
             <span className="material-symbols-outlined text-xl">school</span>

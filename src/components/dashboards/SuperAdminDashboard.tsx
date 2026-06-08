@@ -1,7 +1,8 @@
-import { Building2, Users, CreditCard, Activity, TrendingUp, ArrowUpRight, Globe, ShieldCheck, Zap, Edit3, X, MapPin } from 'lucide-react';
+import { Building2, Users, CreditCard, Activity, TrendingUp, ArrowUpRight, Globe, ShieldCheck, Zap, Edit3, X, MapPin, Printer } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { Screen } from '../../types.ts';
+import DocumentGenerationModal from './DocumentGenerationModal.tsx';
 
 interface SuperAdminDashboardProps {
   navigate: (screen: Screen) => void;
@@ -10,6 +11,7 @@ interface SuperAdminDashboardProps {
 export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardProps) {
   const [showBranches, setShowBranches] = useState(false);
   const [isEditFeesOpen, setIsEditFeesOpen] = useState(false);
+  const [isDocGenOpen, setIsDocGenOpen] = useState(false);
 
   const institutions = [
     { name: 'Vidyora University - Main', location: 'Hyderabad, TS', students: '12.4k', growth: '+5.2%', health: 98, status: 'Optimal' },
@@ -50,6 +52,13 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
       {/* Quick Action Bar */}
       <section className="flex flex-wrap gap-4">
           <button 
+            onClick={() => setIsDocGenOpen(true)}
+            className="flex items-center gap-2 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 px-5 py-3 rounded-xl border border-blue-500/20 transition-all font-bold text-xs uppercase tracking-widest shadow-sm active:scale-95"
+          >
+             <Printer size={16} />
+             Generate Documents
+          </button>
+          <button 
             onClick={() => setIsEditFeesOpen(true)}
             className="flex items-center gap-2 bg-bg-secondary text-text-primary px-5 py-3 rounded-xl border border-border-subtle hover:bg-bg-card transition-all font-bold text-xs uppercase tracking-widest shadow-sm active:scale-95"
           >
@@ -77,7 +86,7 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
             >
               <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-black font-headline uppercase tracking-tighter">Global Branches</h3>
-                <button onClick={() => setShowBranches(false)} className="p-2 hover:bg-white/5 rounded-full">
+                <button onClick={() => setShowBranches(false)} className="p-2 hover:bg-bg-card rounded-full">
                   <X size={24} />
                 </button>
               </div>
@@ -223,6 +232,8 @@ export default function SuperAdminDashboard({ navigate }: SuperAdminDashboardPro
           ))}
         </div>
       </section>
+      
+      <DocumentGenerationModal isOpen={isDocGenOpen} onClose={() => setIsDocGenOpen(false)} />
     </div>
   );
 }

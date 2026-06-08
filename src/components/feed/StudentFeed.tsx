@@ -15,7 +15,7 @@ export default function StudentFeed() {
       </section>
 
       {/* Official Announcement Card */}
-      <div className="bg-gradient-to-br from-brand/80 to-brand-accent/80 p-6 rounded-3xl border border-white/10 shadow-xl relative overflow-hidden group">
+      <div className="bg-gradient-to-br from-brand/80 to-brand-accent/80 p-6 rounded-3xl border border-border-subtle shadow-xl relative overflow-hidden group">
          <Megaphone className="absolute -right-2 -bottom-2 opacity-10 rotate-12 group-hover:scale-110 transition-transform text-white" size={100} />
          <div className="flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase tracking-widest mb-3">
              <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>

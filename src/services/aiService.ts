@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY! });
 
 export type AIAction = 
   | 'benchmarking' | 'forecasting' | 'insights' | 'anomaly' | 'recommendations'
@@ -50,7 +50,7 @@ export const aiService = {
 
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-2.5-flash",
         contents: prompts[action] + "\n\nOutput requirements: Use clear, beautifully written English. Avoid markdown symbols like ***. Use bullet points and clear headers.",
         config: {
           systemInstruction: "You are Vidyora AI, a world-class institutional intelligence system. Your outputs must be professional, elegant, and highly accurate. Do not use decorative symbols or excessive markdown. Focus on clarity and readability.",
